@@ -1,6 +1,8 @@
 import HeaderLazy from "../src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
 import dynamic from "next/dynamic";
+import RouteSync from "./RouteSync";
+import { Suspense } from "react";
 
 const NavigationProvider = dynamic(() =>
     import("../src/utils/context/NavigationContext").then(
@@ -37,6 +39,9 @@ export default function RootLayout({
                         <main>{children}</main>
                     </ClientLayout>
                 </NavigationProvider>
+                <Suspense fallback={null}>
+                    <RouteSync />
+                </Suspense>
             </body>
         </html>
     );

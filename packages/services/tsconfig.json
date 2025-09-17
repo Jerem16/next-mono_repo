@@ -8,11 +8,12 @@
         "jsx": "react-jsx",
         "emitDeclarationOnly": true,
         "module": "ESNext",
-        "moduleResolution": "Bundler",
+        "moduleResolution": "bundler",
         "tsBuildInfoFile": "./dist/.tsbuildinfo",
         "skipLibCheck": true
     },
     "include": ["src"],
+    "references": [{ "path": "../types" }, { "path": "../domain" }],
     "peerDependencies": {
         "aws-amplify": ">=6",
         "@aws-amplify/ui-react": ">=6"

@@ -27,8 +27,8 @@
     },
     "scripts": {
         "build": "tsc --build",
-        "tsc": "tsc --noEmit",
-        "lint": "eslint -c eslint.config.js .",
+        "typecheck": "tsc --project tsconfig.typecheck.json",
+        "lint": "cd ../.. && eslint --config eslint.config.mjs \"packages/services/src/**/*.{ts,tsx,js,jsx}\"",
         "test": "echo \"(placeholder)\""
     },
     "dependencies": {

@@ -4,7 +4,13 @@ import Logo from "../svg_Icon/Logo";
 
 const LogoLink = ({ onClick }) => {
     return (
-        <Link href="/#top" aria-label="Vers home page " className="logo-link" onClick={onClick}>
+        <Link
+            href="/#top"
+            aria-label="Vers home page "
+            className="logo-link"
+            onClick={onClick}
+            prefetch={false}
+        >
             <Logo />
         </Link>
     );

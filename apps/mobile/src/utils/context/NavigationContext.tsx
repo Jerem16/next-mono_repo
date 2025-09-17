@@ -10,7 +10,7 @@ interface NavigationContextType {
     openHamburgerMenu: () => void;
     closeHamburgerMenu: (delay?: number) => void;
 }
-const NavigationContext = createContext<NavigationContextType | null>(null);
+const NavigationContext = createContext<NavigationContextType | undefined>(undefined);
 const useNavigationState = () => {
     const router = useRouter();
     const pathname = usePathname();
@@ -45,4 +45,7 @@ export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     );
 };
 import { createUseContext } from "./utils/createUseContext";
-export const useNavigation = createUseContext(NavigationContext, "useNavigation");
+export const useNavigation = createUseContext<NavigationContextType>(
+    NavigationContext,
+    "useNavigation"
+);

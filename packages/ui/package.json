@@ -27,8 +27,8 @@
     },
     "scripts": {
         "build": "tsc --build",
-        "tsc": "tsc --noEmit",
-        "lint": "eslint -c eslint.config.js .",
+        "typecheck": "tsc --noEmit --emitDeclarationOnly false",
+        "lint": "cd ../.. && eslint --config eslint.config.mjs \"packages/ui/src/**/*.{ts,tsx,js,jsx}\"",
         "test": "echo \"(placeholder)\""
     },
     "peerDependencies": {

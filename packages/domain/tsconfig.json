@@ -6,7 +6,7 @@
         "composite": true,
         "declaration": true,
         "module": "ESNext",
-        "moduleResolution": "Bundler",
+        "moduleResolution": "bundler",
         "tsBuildInfoFile": "./dist/.tsbuildinfo",
         "skipLibCheck": true
     },

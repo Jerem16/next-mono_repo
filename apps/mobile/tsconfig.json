@@ -13,26 +13,21 @@
         "lib": ["dom", "dom.iterable", "esnext"],
         "baseUrl": "../..",
         "paths": {
-            "@/*": ["./*"],
-            "@apps/*": ["apps/web/*"],
-            "@app/*": ["apps/web/app/*"],
-            "@src/*": ["apps/web/src/*"],
-            "@amplify": ["amplify"],
-            "@amplify/*": ["amplify/*"],
-            "@packages/ui": ["packages/ui/src"],
-            "@packages/ui/*": ["packages/ui/src/*"],
+            "@/*": ["apps/mobile/*"],
+            "@/src/*": ["apps/mobile/src/*"],
+            "@components/*": ["apps/mobile/src/components/*"],
+            "@utils/*": ["apps/mobile/src/utils/*"],
+            "@assets/*": ["apps/mobile/src/assets/*"],
             "@packages/domain": ["packages/domain/src"],
             "@packages/domain/*": ["packages/domain/src/*"],
             "@packages/services": ["packages/services/src"],
             "@packages/services/*": ["packages/services/src/*"],
+            "@packages/services/platform/*": ["packages/services/src/platform/*"],
             "@packages/types": ["packages/types/src"],
             "@packages/types/*": ["packages/types/src/*"],
-            "@assets/*": ["apps/web/src/assets/*"],
-            "@components/*": ["apps/web/src/components/*"],
-            "@hooks/*": ["apps/web/src/hooks/*"],
-            "@context/*": ["apps/web/src/context/*"],
-            "@utils/*": ["apps/web/src/utils/*"],
-            "@public/*": ["apps/web/public/*"]
+            "@packages/types/platform": ["packages/types/src/platform"],
+            "@packages/ui": ["packages/ui/src"],
+            "@packages/ui/*": ["packages/ui/src/*"]
         },
         "plugins": [{ "name": "next" }]
     },
@@ -50,10 +45,5 @@
         ".next/types/**/*.ts"
     ],
     "exclude": ["node_modules"],
-    "references": [
-        { "path": "../../packages/types" },
-        { "path": "../../packages/domain" },
-        { "path": "../../packages/services" },
-        { "path": "../../packages/ui" }
-    ]
+    "references": []
 }

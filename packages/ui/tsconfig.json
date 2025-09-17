@@ -8,7 +8,7 @@
         "jsx": "react-jsx",
         "emitDeclarationOnly": true,
         "module": "ESNext",
-        "moduleResolution": "Bundler",
+        "moduleResolution": "bundler",
         "tsBuildInfoFile": "./dist/.tsbuildinfo",
         "baseUrl": ".",
         "paths": {

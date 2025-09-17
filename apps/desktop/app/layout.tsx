@@ -6,6 +6,7 @@ import HeaderProps from "./headerProps";
 import ScrollProvider from "../src/utils/context/ScrollContext";
 import ScrollSectionsWrapper from "./ScrollSectionsWrapper";
 import Loader from "@/src/components/loader/Loader";
+import RouteSync from "./RouteSync";
 
 export const RobotoFlex = localFont({
     src: "/fonts/RobotoFlex.woff2",
@@ -53,6 +54,9 @@ export default function RootLayout({
                         </SearchProvider>
                     </ScrollSectionsWrapper>
                 </ScrollProvider>
+                <Suspense fallback={null}>
+                    <RouteSync />
+                </Suspense>
             </body>
         </html>
     );

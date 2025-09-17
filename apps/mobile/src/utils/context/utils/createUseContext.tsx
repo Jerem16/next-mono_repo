@@ -1,8 +1,8 @@
 
 import { useContext } from "react";
+
 export const createUseContext = <T,>(
-    /* eslint-disable @typescript-eslint/no-explicit-any */ 
-    context: React.Context<T | any>,
+    context: React.Context<T | undefined>,
     name: string
 ) => {
     return () => {
