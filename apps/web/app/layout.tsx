@@ -1,13 +1,10 @@
 import "./globals.scss";
-import React, { PropsWithChildren } from "react";
-import { AuthProvider } from "@/apps/web/src/auth";
+import { PropsWithChildren } from "react";
 
 export default function RootLayout({ children }: PropsWithChildren) {
     return (
         <html lang="fr">
-            <body>
-                <AuthProvider>{children}</AuthProvider>
-            </body>
+            <body>{children}</body>
         </html>
     );
 }
