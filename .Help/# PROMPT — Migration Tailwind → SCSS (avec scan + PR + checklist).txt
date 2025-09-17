@@ -1,0 +1,217 @@
+Migration Tailwind → SCSS (avec scan + PR + checklist)
+
+````markdown
+# 🚀 Prompt “Migration Tailwind → SCSS” basé sur la nomenclature EXISTANTE
+
+Agis comme un développeur front-end expert en Next.js 15+, SCSS et architecture modulaire.
+
+---
+
+## 🎯 Objectif
+
+Convertir tous les composants `.tsx` présents dans :
+
+- `/components/Profile/`
+- `/components/forms/`
+- `/components/buttons/`
+
+…utilisant **Tailwind CSS**, en fichiers `.tsx` + `.scss` propres, basés **strictement sur la nomenclature déjà en place** dans le repo SCSS existant.
+
+---
+
+## 📁 Contexte projet
+
+- Framework : **Next.js 15+**, TypeScript
+- Tailwind encore utilisé mais en cours de **migration vers SCSS pur**
+- Le projet contient déjà une **architecture SCSS structurée**, avec :
+  - des fichiers SCSS partiels : `_nom.scss`
+  - une nomenclature définie (préfixes, variantes, mixins, variables, breakpoints)
+  - une centralisation des imports dans `main.scss`
+
+---
+
+## 🔎 PHASE 1 — DÉTECTION DE LA NOMENCLATURE SCSS EXISTANTE
+
+Scanne automatiquement :
+
+```bash
+src/components/{Profile,forms,buttons}/**/*.tsx
+src/**/*.scss
+src/assets/styles/**/*.scss
+````
+
+Analyse tous les fichiers SCSS existants pour détecter :
+
+1. **Préfixes et patterns de classes SCSS** (ex: `btn-`, `srvP-`, `ft_`)
+2. **Variantes** (suffixes avec `_`, ex : `_blue`, `_light`, `_ctn`)
+3. **Utilities globaux** (ex: `.flx-c`, `.visually-hidden`, `.content-wrapper`)
+4. **Variables** SCSS (ex: `$primary-blue`, `$white`, `$grey`)
+5. **Mixins** disponibles (ex: `@include buttonText`, `@include navLink`)
+6. **Breakpoints** utilisés (ex: `@media (max-width: 1390px)`)
+7. **Organisation des fichiers** : co-localisation des fichiers SCSS (`_Nom.scss`) avec les composants `.tsx`, puis centralisation dans `main.scss`
+
+⚠️ **N'invente rien** : respecte **exactement** ce que tu détectes.
+
+---
+
+## 🔄 PHASE 2 — CONVERSION DE CHAQUE COMPOSANT
+
+Pour **chaque fichier `.tsx` contenant du Tailwind CSS** :
+
+1. Convertis toutes les classes Tailwind en une **classe unique** personnalisée basée sur la convention détectée (ex : `srvP_card-title flx-c`)
+2. Crée le **fichier `.scss` associé** (`_Nom.scss`), au bon endroit, avec :
+
+   * les styles SCSS natifs équivalents
+   * l’usage des **mixins, variables, utilities** existantes
+   * les responsive & pseudo-classes conformes à ce qui est déjà utilisé (`@media`, `&:hover`, etc.)
+3. Mets à jour le composant `.tsx` :
+
+   * remplace `className="..."` par `className="nom-de-classe"`
+   * importe le fichier SCSS via `import './_Nom.scss'` ou autre format **exactement comme dans le repo**
+4. Génère la **liste de tâches** pour le développeur
+5. Génère une **Pull Request prête à soumettre**
+
+---
+
+## ⛔ INTERDICTIONS ABSOLUES
+
+* ❌ Pas de `@apply`
+* ❌ Pas de BEM (sauf si déjà utilisé dans le projet)
+* ❌ Pas d’invention de conventions, classes, patterns
+* ❌ Pas de CSS-in-JS
+* ❌ Pas de concaténation dynamique dans `className`
+
+---
+
+## 📦 SORTIE ATTENDUE (par composant)
+
+1. ### ✅ Profil de la nomenclature détectée
+
+   * Préfixes, variantes, utilities, variables, mixins, breakpoints, organisation
+2. ### ✨ Fichier `.tsx` modifié
+
+   * Avec className propre et import SCSS
+3. ### 🎨 Fichier `.scss` généré
+
+   * SCSS natif réutilisant les tokens et styles du projet
+4. ### 📋 Liste des tâches à effectuer
+
+   * Actionnable en checklist dev
+5. ### 🔀 Pull Request générée
+
+   * Titre, description, checklist de validation, bénéfices
+
+---
+
+## ✅ EXEMPLE DE RÉSULTAT (format, à adapter selon la détection réelle)
+
+### Profil de la nomenclature détectée
+
+* Préfixes de classes : `btn-`, `srvP-`, `ft-`, `sld-`
+* Variantes : `_blue`, `_light`, `_ctn`, `_lg`
+* Utilities : `.flx-c`, `.visually-hidden`
+* Variables : `$primary-blue`, `$white`, `$grey`
+* Mixins : `@include buttonText`, `@include transition`
+* Breakpoints : `@media (min-width: 768px)`, `@media (max-width: 1390px)`
+* Organisation : `_Nom.scss` co-localisé, importé dans `main.scss`
+
+---
+
+### Fichier `.tsx` modifié
+
+```tsx
+import './_button.scss';
+
+export const Button = () => {
+  return (
+    <button className="btn-style_blue flx-c">
+      Cliquez ici
+    </button>
+  );
+};
+```
+
+---
+
+### Fichier `.scss` généré
+
+```scss
+.btn-style_blue {
+  @include buttonText;
+  background: $primary-blue;
+  color: $white;
+  padding: 0.75rem 2rem;
+  border-radius: 8px;
+  transition: transform 200ms ease, background 300ms ease;
+
+  &:hover {
+    background: $light-blue;
+  }
+
+  @media (min-width: 768px) {
+    padding: 1rem 2.5rem;
+  }
+}
+```
+
+---
+
+### 📋 Liste des tâches
+
+* [ ] Scanner le composant `/components/buttons/Button.tsx`
+* [ ] Extraire les classes Tailwind CSS
+* [ ] Identifier les équivalents SCSS existants
+* [ ] Créer un fichier `_button.scss` avec les styles natifs
+* [ ] Remplacer les `className` dans le `.tsx`
+* [ ] Ajouter l’import SCSS dans le composant
+* [ ] Vérifier le rendu visuel
+* [ ] Ajouter l’import dans `main.scss`
+
+---
+
+### 🔀 Pull Request : `feat(styles): migrate Button to SCSS`
+
+**Description :**
+Migration du composant `Button.tsx` de Tailwind vers SCSS natif selon la nomenclature existante.
+
+**Modifications :**
+
+* Création de `_button.scss`
+* Conversion des classes Tailwind en SCSS pur
+* Ajout des variables/mixins SCSS existantes
+* Mise à jour du JSX avec `className` propre
+* Import du SCSS dans le composant
+
+**Checklist :**
+
+* [x] Aucun `@apply`
+* [x] Respect total de la nomenclature actuelle
+* [x] Pas de changement de logique JSX
+* [x] Responsive conforme aux breakpoints du projet
+
+**Bénéfices :**
+
+* Uniformisation de la base de code
+* Suppression progressive de Tailwind
+* Centralisation des styles, plus de maintenabilité
+
+---
+
+## 📝 Composant d'entrée attendu :
+
+> Colle ici un composant `.tsx` contenant des classes Tailwind à convertir.
+
+---
+
+```
+
+---
+
+### ✅ Tu peux maintenant :
+
+- **Option 1** : Coller un composant `.tsx` pour lancer la migration
+- **Option 2** : Taper **"Utilisez ce prompt"** pour l’utiliser tel quel
+- **Option 3** : Taper **"Recommencer"** pour tout reprendre
+- **Option 4** : Taper **"Quitter"** pour sortir
+
+---

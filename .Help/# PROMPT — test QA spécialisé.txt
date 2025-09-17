@@ -1,0 +1,90 @@
+# 🔎 Prompt — Setup & Organisation complète de l’environnement de tests (Next.js + Amplify)
+
+Agis comme un expert **DevOps** et **QA** spécialisé dans les environnements **Next.js** modernes.  
+Ta mission : mettre en place un système de tests **complet, modulaire et maintenable** pour un projet utilisant les technologies suivantes :
+
+- **Framework** : Next.js v15.0.3  
+- **Markdown** : react-markdown v10.1.0 + remark-gfm  
+- **Styles** : Sass v1.60.0  
+- **Backend** : AWS Amplify (aws-amplify v6.9.0 et @aws-amplify/ui-react)  
+- **Tests unitaires & API** : Vitest  
+- **Tests end-to-end (E2E/UI)** : Playwright  
+
+---
+
+## 🎯 Objectif
+
+Créer **et vérifier en priorité l’environnement de tests** avant toute chose.  
+Ensuite, générer un système qui :  
+
+1. **Scaffold & organise** la structure de tests (unitaires, API, UI, e2e).  
+2. **Configure tous les outils nécessaires** (Vitest, Playwright).  
+3. **Détecte les tests existants** et les déplace/organise automatiquement.  
+4. Permet d’exécuter facilement **tous les tests avec une seule commande** (`npm test` ou équivalent).  
+5. Fonctionne avec **Next.js 15+** et prend en compte l’environnement **AWS Amplify** (mocking si besoin).  
+
+---
+
+## 📚 Contexte
+
+- Le projet contient déjà des tests, mais **l’organisation est floue**.  
+- On veut une **réorganisation fiable et automatisée** :  
+  - `tests/unit` → tests unitaires.  
+  - `tests/api` → tests backend/API.  
+  - `tests/e2e` → tests Playwright.  
+- Générer des **exemples de tests** si certains types manquent.  
+- Fournir un **README** clair pour l’équipe (installation, exécution, ajout de nouveaux tests).  
+
+---
+
+## 🔄 Étapes attendues
+
+1. **Vérification & préparation de l’environnement**  
+   - Vérifier Node.js, npm/yarn, compatibilité Next.js, Vitest, Playwright.  
+   - Installer (si manquant) : `vitest`, `@testing-library/react`, `playwright`, `@playwright/test`.  
+   - Créer les fichiers de config par défaut (`vitest.config.ts`, `playwright.config.ts`).  
+
+2. **Organisation des répertoires**  
+   - Créer la structure :  
+     ```
+     tests/
+       unit/
+       api/
+       e2e/
+     ```  
+   - Déplacer automatiquement les tests existants dans la bonne catégorie.  
+   - Sauvegarder toute version précédente (`tests/_legacy`) pour ne rien perdre.  
+
+3. **Scaffold des exemples** (si aucun fichier présent)  
+   - `tests/unit/example.test.ts`  
+   - `tests/api/example.api.test.ts`  
+   - `tests/e2e/example.spec.ts`  
+
+4. **Scripts de test**  
+   - Ajouter dans `package.json` :  
+     ```json
+     {
+       "scripts": {
+         "test": "npm run test:unit && npm run test:api && npm run test:e2e",
+         "test:unit": "vitest run --coverage",
+         "test:api": "vitest run tests/api --coverage",
+         "test:e2e": "playwright test"
+       }
+     }
+     ```  
+
+5. **Compatibilité Amplify**  
+   - Prévoir un système de **mock AWS Amplify** pour les tests unitaires et API.  
+   - Ajouter un `setupTests.ts` (global mocks, polyfills, config).  
+
+6. **Documentation générée**  
+   - Générer un `README.md` qui explique :  
+     - Comment lancer tous les tests.  
+     - Comment lancer un seul type (`unit`, `api`, `e2e`).  
+     - Comment ajouter un nouveau test.  
+     - Comment gérer/mocker AWS Amplify.  
+
+1. Déplacer `test/` → `tests/` en conservant `test/_legacy` sous `tests/_legacy`.
+2. Fusionner le contenu de `e2e/` et `test/e2e/` dans `tests/e2e/`.
+3. Vérifier que chaque fichier est orienté vers `unit`, `api` ou `e2e`; sinon l’archiver dans `tests/_legacy/`.
+4. Mettre à jour les chemins d’import dans les tests déplacés.  ## ⛔ Contraintes  - ❌ Pas d’utilisation de Jest ou autres frameworks supplémentaires.   - ❌ Ne jamais écraser les tests existants sans backup.   - ✅ Tout doit être **compatible avec Next.js v15+**.    ---  ## 🧾 Format de réponse attendu  1. **package.json** (avec scripts mis à jour).   2. **Arborescence des dossiers** de test générée.   3. **Exemples de tests** générés (unit, api, e2e).   4. **README.md** explicatif.   5. **Fichiers de config** (`vitest.config.ts`, `playwright.config.ts`, `setupTests.ts`).    ---

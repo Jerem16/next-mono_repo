@@ -1,0 +1,179 @@
+
+# Plan d’action — DÉMARRER
+
+## 0) Préparation
+
+* [ ] **Branche de travail** : `refactor/blog-manage-cascade-perf`
+* [ ] **Casse unique** des imports : `@components/Blog/manage/...` (aucun `components/blog/`)
+* [ ] `tsconfig.json` → `forceConsistentCasingInFileNames: true`
+
+---
+
+## 1) Listes — corriger le bug d’index (tri ≠ source)
+
+**But** : garantir que *Modifier/Supprimer* cible toujours le bon item même après tri.
+
+### Option recommandée (robuste) — **API pilotée par ID**
+
+* [ ] **Nouveau contrat `GenericList`** (remplace l’approche “index” par l’ID)
+  **Signatures à implémenter** :
+
+  * `getId: (item) => string | number`
+  * `onEditById: (id: string | number) => void`
+  * `onDeleteById: (id: string | number) => void`
+  * (conservent) `onSave`, `onCancel`
+  * `editingId: string | number | null` (remplace `editingIndex`)
+* [ ] **Implémentation interne** : construire `indexed = items.map((item, originalIndex) => ({ item, originalIndex, id: getId(item) }))`, puis trier **sur `item`** (jamais sur l’index). Les callbacks appellent **toujours** les variantes *ById*.
+* [ ] **Managers/pages** :
+
+  * Remplacer l’état `editingIndex` → `editingId`
+  * `onEdit`/`onDelete` → `onEditById`/`onDeleteById`
+  * Dans les pages (`CreateSection`, `CreateTag`, `CreatePost`, `CreateAuthor`), piloter la sélection par **ID** (et non par position).
+
+### Option alternative (si tu veux rester “index” temporairement)
+
+* [ ] Porter `originalIndex` dans la structure triée et **propager** `originalIndex` dans tous les callbacks.
+  *(Moins maintenable ; garde-la seulement en transitoire.)*
+
+**Fichiers à toucher (sans diff)**
+
+* `src/components/Blog/manage/GenericList.tsx` (nouvelle API + utilisation de `getId`)
+* `…/authors/AuthorList.tsx`, `…/sections/SectionList.tsx`, `…/posts/PostList.tsx`, `…/tags/TagList.tsx` (passer `getId`, `editingId`, `onEditById`, `onDeleteById`)
+* Pages managers (`CreateAuthor.tsx`, `CreateSection.tsx`, `CreatePost.tsx`, `CreateTag.tsx`) : état local `editingId`, handlers par ID
+
+**Critères d’acceptation**
+
+* [ ] Cliquer *Modifier/Supprimer* cible **toujours** le bon item, quel que soit le tri (`byAlpha` ou `byOptionalOrder`).
+* [ ] Plus aucune dépendance à l’index trié pour identifier l’élément source.
+
+---
+
+## 2) Tri — unification et non-mutation
+
+* [ ] Toutes les listes utilisent **exclusivement** `sorters.ts` :
+
+  * `byOptionalOrder` pour les entités ordonnables
+  * `byAlpha(pick)` pour les entités nominales
+* [ ] Tri **immuable** : toujours `slice().sort(...)` (jamais `sort` in-place sur des props)
+* [ ] Zéro tri ad hoc dans les pages managers
+
+**Fichiers** : `Blog.tsx`, `*List.tsx` (Sections/Tags/Posts/Authors)
+
+**Critères**
+
+* [ ] Audit : aucun `array.sort(...)` direct sur une prop ; uniquement via `sorters.ts` + `slice()`.
+
+---
+
+## 3) Perf UI — stabilité & re-renders
+
+* [ ] **Mémoïser** : `BlogList`, `BlogSectionCard`, `BlogCard`, `TagList`, `PostTagsRelationManager` via `React.memo`
+* [ ] **Callbacks stables** : `useCallback` pour `onEditById`, `onDeleteById`, `onSave`, `onCancel`
+* [ ] **Mappages coûteux** (ex. `authorById`) via `useMemo`
+* [ ] **Auto-gen slug/SEO** : debounce **200 ms** dans `useAutoGenFields` (pas dans les composants)
+
+**Critères**
+
+* [ ] Les listes ne re-rendent pas quand on tape dans un champ du formulaire
+* [ ] Les dépendances `useMemo/useCallback` sont propres (pas de re-création inutile)
+
+---
+
+## 4) Perf Data — sélectivité & batch
+
+* [ ] **Sélection minimale** dans les `list()` (quand possible) : récupérer seulement `id, title/slug, order` pour les listes
+* [ ] **Batch mutations** avec concurrence limitée (5–8) pour les opérations en masse (tags↔posts, sections↔posts)
+* [ ] **Pagination prête** pour >50 items ; prévoir virtualisation si volumétrie
+
+**Critères**
+
+* [ ] Pas d’overfetching évident dans les listes
+* [ ] Les opérations N\:N ne saturent pas le réseau (batch OK)
+
+---
+
+## 5) Suppression en cascade — politique + services
+
+**Principe** : AppSync/DynamoDB n’ont pas de FK → cascade **applicative**.
+
+* [ ] **Helpers cascade** (`src/entities/core/services/cascade.ts`)
+
+  * `withConcurrency(items, worker, limit)`
+  * `deleteEdges(listFn, deleteFn, foreignKey, id)`
+  * `setNullBatch(listFn, updateFn, field, id)`
+* [ ] **Politique par entité** (`src/entities/models/<entity>/config.ts`)
+
+  * `Post` : `CASCADE` → supprime `PostTag`, `SectionPost` (+ `Comment` si présent)
+  * `Tag` : `CASCADE` → supprime `PostTag` (ne touche pas `Post`)
+  * `Section` : `CASCADE` → supprime `SectionPost`
+  * `Author` : `SET_NULL` → met `Post.authorId = null` (ou `RESTRICT` si tu préfères bloquer)
+* [ ] **Étendre les services** : `postService`, `tagService`, `sectionService`, `authorService`
+
+  * Ajouter `deleteCascade({ id })` conformément à la politique
+* [ ] **Brancher les pages** : remplacer `service.delete` → `service.deleteCascade`
+
+**Critères**
+
+* [ ] Supprimer un **Tag** → plus aucune arête `PostTag` pour ce tag (posts intacts)
+* [ ] Supprimer une **Section** → plus aucune arête `SectionPost` pour cette section
+* [ ] Supprimer un **Post** → plus aucune arête `PostTag/SectionPost` liées à ce post
+* [ ] Supprimer un **Author** → tous ses posts ont `authorId = null` (ou suppression refusée si `RESTRICT`)
+
+---
+
+## 6) Formulaires — cohérence & auto-gen
+
+* [ ] Tous les formulaires sont enveloppés par **`EntityFormShell`**
+* [ ] **Auto-gen uniforme** :
+
+  * `title → slug` (slugify)
+  * `title → seo.title`
+  * `description/excerpt → seo.description`
+  * (via `useAutoGenFields` + **debounce 200 ms**)
+* [ ] `OrderSelector` : reçoit la **liste + editingId** (ou clé) pour calculer l’ordre sans ambiguïté
+
+**Critères**
+
+* [ ] Même comportement d’auto-gen sur **Posts** et **Sections**
+* [ ] Réordonnancement stable, pas de décalage d’indices
+
+---
+
+## 7) Contrat de manager — simplifier & éviter la répétition
+
+* [ ] **Signature cible** (commune) :
+
+
+  ```
+* [ ] **Aucune logique métier** dans les pages : tout dans le hook/service
+
+**Critères**
+
+* [ ] Les 4 hooks (`useSectionForm`, `usePostForm`, `useTagForm`, `useAuthorForm`) exposent la **même** API
+* [ ] Les pages managers sont **purement orchestratrices**
+
+---
+
+## 8) QA rapide
+
+* [ ] **Index/ID** : tester *Modifier/Supprimer* après tri alpha et par ordre
+* [ ] **Cascade** : 4 scénarios (Tag, Section, Post, Author) conformes
+* [ ] **Perf** : listes ne re-rendent pas au frappe clavier dans les forms
+* [ ] **Build** : `yarn tsc` + `yarn build` OK
+
+---
+
+# ✅ Affichage des tâches — vue compacte à cocher
+*(si pb, bug ou info cruciale : ajouter un commentaire après `//`)*
+
+* [ ] 0-Prep (branche + casse + tsconfig) // ⚠️ ex : lorem ipsum
+* [ ] 1-Listes ID-driven (`GenericList`, \*List.tsx, pages managers)
+* [ ] 2-Tri via `sorters.ts` (slice + sort)
+* [ ] 3-Perf UI (memo/callbacks/memos + debounce auto-gen)
+* [ ] 4-Perf Data (sélection minimale + batch)
+* [ ] 5-Cascade (helpers + services + pages)
+* [ ] 6-Formulaires (EntityFormShell, OrderSelector avec editingId)
+* [ ] 7-Contrat manager (API commune)
+* [ ] 8-QA (scénarios + build)
+
+---

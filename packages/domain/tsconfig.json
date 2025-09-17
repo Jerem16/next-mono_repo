@@ -1,0 +1,15 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "rootDir": "src",
+        "outDir": "dist",
+        "composite": true,
+        "declaration": true,
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "tsBuildInfoFile": "./dist/.tsbuildinfo",
+        "skipLibCheck": true
+    },
+    "include": ["src"],
+    "references": [{ "path": "../types" }]
+}

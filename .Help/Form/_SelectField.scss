@@ -1,0 +1,17 @@
+.select-field {
+    margin-bottom: 0.5rem;
+}
+
+.select-field_label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.select-field_input {
+    border: 1px solid $grey;
+    padding: 0.5rem;
+    width: 100%;
+    background: $white;
+    @include border-radius(4px);
+}

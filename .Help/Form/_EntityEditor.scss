@@ -1,0 +1,32 @@
+.entity-editor {
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 auto 2rem;
+    padding: 1.5rem 1rem;
+    background-color: $white;
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.1),
+        0 1px 2px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+
+    &_title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    &_delete-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 2rem;
+        button {
+            padding: 0 0.75rem;
+            border-radius: 1rem;
+            &:hover {
+                filter: drop-shadow(4px 4px 4px rgba(48, 46, 77, 0.3));
+            }
+        }
+    }
+}

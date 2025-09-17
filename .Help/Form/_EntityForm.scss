@@ -1,0 +1,35 @@
+.entity-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; // space-y-5
+    padding: 1.5rem; // p-6
+    background: $white; // bg-white
+    border: 1px solid $grey; // border
+    @include border-radius(6px); // rounded-md
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); // shadow-sm
+    max-width: 28rem; // max-w-md
+    margin-left: auto; // mx-auto
+    margin-right: auto; // mx-auto
+}
+
+.entity-form_field {
+    label {
+        display: block; // block
+        margin-bottom: 0.25rem; // mb-1
+        font-weight: 500; // font-medium
+    }
+
+    input {
+        width: 100%; // w-full
+        padding: 0.5rem; // p-2
+        border: 1px solid $grey; // border
+        @include border-radius(4px); // rounded
+    }
+}
+
+.entity-form_actions {
+    display: flex; // flex
+    justify-content: flex-end; // justify-end
+    gap: 0.5rem; // gap-2
+    padding-top: 0.5rem; // pt-2
+}

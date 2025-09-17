@@ -1,0 +1,25 @@
+Prompt Codex — Setup & Maintenance Global (compact)
+
+Agis comme un expert DevOps/QA full-stack.
+Vérifie et corrige tout l’environnement projet :
+
+🔧 Install : réparer yarn/npm install (403, tokens, registres).
+
+📦 Dépendances : vérifier package.json (dependencies, devDependencies).
+
+🧹 Lint/Qualité : ESLint, Prettier, scripts.
+
+🏗 Build/Types : tsc --noEmit, next build/vite build.
+
+🧪 Tests : unit (Vitest/Jest), UI, API, e2e (Playwright/Cypress). Ajouter configs + scripts (test, test:unit, test:e2e, test:all).
+
+🔄 Scripts unifiés dans package.json (dev, build, start, lint, type-check, test).
+
+🚀 CI/CD : générer un workflow GitHub Actions qui lance install + lint + build + tests.
+
+VERIFIE L'installation et exectute les taches de corecti besoin
+
+📖 Doc : mettre à jour README.md (install, dev, build, test, CI).
+
+⚠️ Corrige sans supprimer l’existant : ajoute uniquement ce qui manque.
+Donne un plan clair + les commandes exactes à exécuter.
