@@ -66,8 +66,6 @@
         "constructs": "^10.3.0",
         "dependency-cruiser": "^17.0.1",
         "esbuild": "^0.23.1",
-        "eslint": "^9.15.0",
-        "eslint-config-next": "15.5.3",
         "execa": "^9.5.2",
         "jsdom": "^24.1.1",
         "madge": "^8.0.0",

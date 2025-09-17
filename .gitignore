@@ -68,3 +68,4 @@ amplifyconfiguration*
 
 #temps
 .yarn.lock
+node_modules

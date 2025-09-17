@@ -1,0 +1,27 @@
+.section {
+    width: 100%;
+    min-height: calc(100vh);
+    display: block;
+}
+#expert,
+#slider {
+    background: linear-gradient(#c2be51, #fff);
+}
+#about {
+    background: linear-gradient(#62c251, #fff);
+}
+#novice,
+#services {
+    background: linear-gradient(#516dc2, #fff);
+}
+#contact {
+    background: linear-gradient(#9951c2, #fff);
+}
+
+#sans-permis {
+    background: linear-gradient(#c2518a, #fff);
+}
+#expert,
+#avec-permis {
+    background: linear-gradient(#51c264, #fff);
+}
