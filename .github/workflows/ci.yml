@@ -28,7 +28,7 @@ jobs:
       - name: Install
         run: yarn install --immutable
       - name: Typecheck
-        run: yarn typecheck
+        run: yarn tsc --noEmit
       - name: Lint
         run: yarn lint
       - name: Build
