@@ -8,7 +8,7 @@ import type { UserProfileFormType, UserProfileType } from "@src/entities/models/
 
 type Extras = Record<string, never>;
 
-const fieldLabel = (field: keyof UserProfileFormType): string => field;
+const fieldLabel = (field: keyof UserProfileFormType): string => String(field);
 
 export function useUserProfileForm(profile: UserProfileType | null) {
     const { user } = useAuthenticator();
