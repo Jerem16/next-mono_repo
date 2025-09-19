@@ -1,6 +1,8 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
+        "target": "es2022",
+        "lib": ["es2022", "dom", "dom.iterable", "esnext"],
         "strict": true,
         "noEmit": true,
         "jsx": "preserve",
@@ -8,15 +10,12 @@
         "allowJs": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
+        "moduleResolution": "Bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "baseUrl": "../..",
+        "baseUrl": ".",
         "paths": {
             "@/*": ["./*"],
-            "@apps/*": ["apps/web/*"],
-            "@app/*": ["apps/web/app/*"],
-            "@src/*": ["apps/web/src/*"],
             "@amplify": ["amplify"],
             "@amplify/*": ["amplify/*"],
             "@packages/ui": ["packages/ui/src"],
@@ -27,12 +26,15 @@
             "@packages/services/*": ["packages/services/src/*"],
             "@packages/types": ["packages/types/src"],
             "@packages/types/*": ["packages/types/src/*"],
-            "@assets/*": ["apps/web/src/assets/*"],
-            "@components/*": ["apps/web/src/components/*"],
-            "@hooks/*": ["apps/web/src/hooks/*"],
-            "@context/*": ["apps/web/src/context/*"],
-            "@utils/*": ["apps/web/src/utils/*"],
-            "@public/*": ["apps/web/public/*"]
+            "@apps/*": ["apps/*"],
+            "@src/*": ["src/*"], // ⬅️ local
+            "@app/*": ["app/*"], // ⬅️ local
+            "@assets/*": ["src/assets/*"],
+            "@components/*": ["src/components/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@context/*": ["src/utils/context/*"], // si tu veux
+            "@utils/*": ["src/utils/*"],
+            "@public/*": ["public/*"]
         },
         "plugins": [{ "name": "next" }]
     },

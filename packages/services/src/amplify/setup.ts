@@ -1,11 +1,17 @@
-// src/amplify/setup.ts
+// packages/services/src/amplify/setup.ts
 import { Amplify } from "aws-amplify";
-import outputs from "@apps/amplify_outputs.json" with { type: "json" };
-declare global {
-    var __AMPLIFY_CONFIGURED__: boolean | undefined;
-}
+import outputsRaw from "@web/amplify_outputs.json" with { type: "json" };
 
-export {};
+// Un type minimal pour éviter les any/unknown
+type AmplifyOutputsLike = {
+    auth?: Record<string, unknown>;
+    data?: Record<string, unknown>;
+} & Record<string, unknown>;
+
+// Narrowing sûr du JSON importé
+const outputs: AmplifyOutputsLike = outputsRaw as unknown as AmplifyOutputsLike;
+
+// Tu peux surcharger ce que tu veux ici
 const overrides = {
     auth: {
         ...outputs.auth,
@@ -17,10 +23,18 @@ const overrides = {
     },
 } as const;
 
-const cfg = { ...outputs, ...overrides };
+// Tape 'cfg' avec la signature attendue par Amplify.configure
+type AmplifyConfig = Parameters<typeof Amplify.configure>[0];
+const cfg: AmplifyConfig = { ...(outputs as object), ...(overrides as object) } as AmplifyConfig;
 
-// Idempotence globale (dev + HMR + client/serveur)
+declare global {
+    // idempotence côté client/serveur
+    // eslint-disable-next-line no-var
+    var __AMPLIFY_CONFIGURED__: boolean | undefined;
+}
+export {};
+
 if (!globalThis.__AMPLIFY_CONFIGURED__) {
-    Amplify.configure(cfg, { ssr: true }); // <-- ici on balance bien cfg
+    Amplify.configure(cfg, { ssr: true });
     globalThis.__AMPLIFY_CONFIGURED__ = true;
 }

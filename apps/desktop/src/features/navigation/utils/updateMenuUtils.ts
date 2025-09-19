@@ -1,149 +1,136 @@
 import { useEffect, useRef, useCallback } from "react";
-import { MenuItem } from "@nav-data/menuItems";
+import { MenuItem } from "@src/features/navigation/data/menuItems";
 import { SubItem } from "@nav-types/menu";
 import { useNavigation } from "@utils/context/NavigationContext";
 
-export const isMainItemActive = (
-  itemPath: string | undefined,
-  currentRoute: string,
-): boolean => {
-  if (!itemPath) {
-    return false;
-  }
-  if (itemPath === "/") {
-    return currentRoute === "/" || currentRoute.startsWith("/#");
-  }
+export const isMainItemActive = (itemPath: string | undefined, currentRoute: string): boolean => {
+    if (!itemPath) {
+        return false;
+    }
+    if (itemPath === "/") {
+        return currentRoute === "/" || currentRoute.startsWith("/#");
+    }
 
-  return currentRoute.startsWith(itemPath);
+    return currentRoute.startsWith(itemPath);
 };
 
 /*-------------------------------------------------------*/
 
-const updateSubItems = (
-  subItems: SubItem[],
-  activeSection: string,
-): SubItem[] => {
-  const activeSubItem = subItems.find(
-    (sub) => sub.AnchorId === `#${activeSection}`,
-  );
-  return subItems.map((sub) => ({
-    ...sub,
-    class: activeSubItem?.id === sub.id ? "active" : "",
-  }));
+const updateSubItems = (subItems: SubItem[], activeSection: string): SubItem[] => {
+    const activeSubItem = subItems.find((sub) => sub.AnchorId === `#${activeSection}`);
+    return subItems.map((sub) => ({
+        ...sub,
+        class: activeSubItem?.id === sub.id ? "active" : "",
+    }));
 };
 export const updateMenuItems = (
-  items: MenuItem[],
-  activeSection: string,
-  currentRoute: string,
+    items: MenuItem[],
+    activeSection: string,
+    currentRoute: string
 ): MenuItem[] => {
-  return items.map((item) => ({
-    ...item,
-    class: isMainItemActive(item.path, currentRoute) ? "active" : "",
-    subItems: item.subItems
-      ? updateSubItems(item.subItems, activeSection)
-      : undefined,
-  }));
+    return items.map((item) => ({
+        ...item,
+        class: isMainItemActive(item.path, currentRoute) ? "active" : "",
+        subItems: item.subItems ? updateSubItems(item.subItems, activeSection) : undefined,
+    }));
 };
 
 /*-------------------------------------------------------*/
 
 export const updateMenuClasses = (
-  mainLink?: MenuItem[],
-  reservation?: MenuItem[],
-  search?: MenuItem[],
-  connection?: MenuItem[],
-  activeSection = "",
-  currentRoute = "",
+    mainLink?: MenuItem[],
+    reservation?: MenuItem[],
+    search?: MenuItem[],
+    connection?: MenuItem[],
+    activeSection = "",
+    currentRoute = ""
 ) => ({
-  mainLink: updateMenuItems(mainLink || [], activeSection, currentRoute),
-  reservation: updateMenuItems(reservation || [], activeSection, currentRoute),
-  search: updateMenuItems(search || [], activeSection, currentRoute),
-  connection: updateMenuItems(connection || [], activeSection, currentRoute),
+    mainLink: updateMenuItems(mainLink || [], activeSection, currentRoute),
+    reservation: updateMenuItems(reservation || [], activeSection, currentRoute),
+    search: updateMenuItems(search || [], activeSection, currentRoute),
+    connection: updateMenuItems(connection || [], activeSection, currentRoute),
 });
 
 /*-------------------------------------------------------*/
 
 export const resetActiveMenuClasses = () => {
-  const activeLinks = document.querySelectorAll(".nav-link.active");
+    const activeLinks = document.querySelectorAll(".nav-link.active");
 
-  activeLinks.forEach((link) => {
-    if (link instanceof HTMLElement) {
-      link.classList.remove("active");
-    }
-  });
+    activeLinks.forEach((link) => {
+        if (link instanceof HTMLElement) {
+            link.classList.remove("active");
+        }
+    });
 
-  const submenus = document.querySelectorAll(".submenu.open");
+    const submenus = document.querySelectorAll(".submenu.open");
 
-  submenus.forEach((submenu) => {
-    if (submenu instanceof HTMLElement) {
-      submenu.style.display = "";
-    }
-  });
+    submenus.forEach((submenu) => {
+        if (submenu instanceof HTMLElement) {
+            submenu.style.display = "";
+        }
+    });
 };
 
 /*-------------------------------------------------------*/
 
 const handleClickOutside = (
-  e: MouseEvent,
-  navRef: React.RefObject<HTMLElement | null>,
-  setOpenSubMenu: React.Dispatch<React.SetStateAction<string | null>>,
+    e: MouseEvent,
+    navRef: React.RefObject<HTMLElement | null>,
+    setOpenSubMenu: React.Dispatch<React.SetStateAction<string | null>>
 ) => {
-  if (!navRef.current) {
-    return;
-  }
+    if (!navRef.current) {
+        return;
+    }
 
-  if (!navRef.current.contains(e.target as Node)) {
-    setOpenSubMenu(null);
-  }
+    if (!navRef.current.contains(e.target as Node)) {
+        setOpenSubMenu(null);
+    }
 };
 const handleKeyDown = (
-  e: KeyboardEvent,
-  setOpenSubMenu: React.Dispatch<React.SetStateAction<string | null>>,
+    e: KeyboardEvent,
+    setOpenSubMenu: React.Dispatch<React.SetStateAction<string | null>>
 ) => {
-  if (e.key === "Escape") {
-    e.preventDefault();
-    setOpenSubMenu(null);
-  }
+    if (e.key === "Escape") {
+        e.preventDefault();
+        setOpenSubMenu(null);
+    }
 };
 export const useMenuBehavior = () => {
-  const navRef = useRef<HTMLElement | null>(null);
-  const { openSubMenu, setOpenSubMenu } = useNavigation();
+    const navRef = useRef<HTMLElement | null>(null);
+    const { openSubMenu, setOpenSubMenu } = useNavigation();
 
-  // 🔄 Ref pour garder la valeur courante sans recréer les callbacks
-  const latestOpenRef = useRef<string | null>(openSubMenu);
-  useEffect(() => {
-    latestOpenRef.current = openSubMenu;
-  }, [openSubMenu]);
+    // 🔄 Ref pour garder la valeur courante sans recréer les callbacks
+    const latestOpenRef = useRef<string | null>(openSubMenu);
+    useEffect(() => {
+        latestOpenRef.current = openSubMenu;
+    }, [openSubMenu]);
 
-  // ✅ Bridge stable qui accepte valeur OU fonction
-  const setOpenSubMenuBridge = useCallback<
-    React.Dispatch<React.SetStateAction<string | null>>
-  >(
-    (value) => {
-      if (typeof value === "function") {
-        const compute = value as (prev: string | null) => string | null;
-        const next = compute(latestOpenRef.current ?? null);
-        setOpenSubMenu(next); // <- le setter réel n'accepte qu'une valeur
-      } else {
-        setOpenSubMenu(value);
-      }
-    },
-    [setOpenSubMenu],
-  );
+    // ✅ Bridge stable qui accepte valeur OU fonction
+    const setOpenSubMenuBridge = useCallback<React.Dispatch<React.SetStateAction<string | null>>>(
+        (value) => {
+            if (typeof value === "function") {
+                const compute = value as (prev: string | null) => string | null;
+                const next = compute(latestOpenRef.current ?? null);
+                setOpenSubMenu(next); // <- le setter réel n'accepte qu'une valeur
+            } else {
+                setOpenSubMenu(value);
+            }
+        },
+        [setOpenSubMenu]
+    );
 
-  useEffect(() => {
-    const onClickOutside = (e: MouseEvent) =>
-      handleClickOutside(e, navRef, setOpenSubMenuBridge);
-    const onKeyDown = (e: KeyboardEvent) =>
-      handleKeyDown(e, setOpenSubMenuBridge);
+    useEffect(() => {
+        const onClickOutside = (e: MouseEvent) =>
+            handleClickOutside(e, navRef, setOpenSubMenuBridge);
+        const onKeyDown = (e: KeyboardEvent) => handleKeyDown(e, setOpenSubMenuBridge);
 
-    document.addEventListener("mousedown", onClickOutside);
-    document.addEventListener("keydown", onKeyDown);
-    return () => {
-      document.removeEventListener("mousedown", onClickOutside);
-      document.removeEventListener("keydown", onKeyDown);
-    };
-  }, [setOpenSubMenuBridge]);
+        document.addEventListener("mousedown", onClickOutside);
+        document.addEventListener("keydown", onKeyDown);
+        return () => {
+            document.removeEventListener("mousedown", onClickOutside);
+            document.removeEventListener("keydown", onKeyDown);
+        };
+    }, [setOpenSubMenuBridge]);
 
-  return { navRef, openSubMenu, setOpenSubMenu: setOpenSubMenuBridge };
+    return { navRef, openSubMenu, setOpenSubMenu: setOpenSubMenuBridge };
 };

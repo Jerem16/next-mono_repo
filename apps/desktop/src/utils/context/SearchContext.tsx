@@ -2,7 +2,7 @@
 
 import React, { createContext, useEffect, useMemo, useState } from "react";
 import { initializeMenuWithContent } from "@src/features/navigation/utils/initializeMenu";
-import type { MenuLinks } from "@src/features/navigation";
+import type { MenuLinks } from "@src/features/navigation/index";
 import { createUseContext } from "./utils/createUseContext";
 
 // On exporte pour pouvoir réutiliser le type dans d'autres fichiers

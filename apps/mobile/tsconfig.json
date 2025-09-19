@@ -1,6 +1,8 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
+        "target": "es2022",
+        "lib": ["es2022", "dom", "dom.iterable", "esnext"],
         "strict": true,
         "noEmit": true,
         "jsx": "preserve",
@@ -8,10 +10,10 @@
         "allowJs": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
+        "moduleResolution": "Bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "baseUrl": "../..",
+        "baseUrl": ".",
         "paths": {
             "@/*": ["./*"],
             "@amplify": ["amplify"],
@@ -25,14 +27,14 @@
             "@packages/types": ["packages/types/src"],
             "@packages/types/*": ["packages/types/src/*"],
             "@apps/*": ["apps/*"],
-            "@app/*": ["apps/mobile/app/*"],
-            "@src/*": ["apps/mobile/src/*"],
-            "@assets/*": ["apps/mobile/src/assets/*"],
-            "@components/*": ["apps/mobile/src/components/*"],
-            "@hooks/*": ["apps/mobile/src/hooks/*"],
-            "@context/*": ["apps/mobile/src/context/*"],
-            "@utils/*": ["apps/mobile/src/utils/*"],
-            "@public/*": ["apps/mobile/public/*"]
+            "@src/*": ["src/*"], // ⬅️ local
+            "@app/*": ["app/*"], // ⬅️ local
+            "@assets/*": ["src/assets/*"],
+            "@components/*": ["src/components/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@context/*": ["src/utils/context/*"], // si tu veux
+            "@utils/*": ["src/utils/*"],
+            "@public/*": ["public/*"]
         },
         "plugins": [{ "name": "next" }]
     },

@@ -24,8 +24,28 @@ export default [
     // (Ton package interne applique déjà @next/eslint-plugin-next core-web-vitals
     // et désactive seulement no-html-link-for-pages pour l’App Router)
     ...makeNextConfig({
-        webProject: "./apps/web/tsconfig.json",
-        include: ["apps/web/{app,src}/**/*.{ts,tsx}"],
+        apps: [
+            {
+                name: "web",
+                tsconfig: "./apps/web/tsconfig.json",
+                include: ["apps/web/{app,src}/**/*.{ts,tsx}"],
+            },
+            {
+                name: "desktop",
+                tsconfig: "./apps/desktop/tsconfig.json",
+                include: ["apps/desktop/{app,src}/**/*.{ts,tsx}"],
+            },
+            {
+                name: "mobile",
+                tsconfig: "./apps/mobile/tsconfig.json",
+                include: ["apps/mobile/{app,src}/**/*.{ts,tsx}"],
+            },
+            {
+                name: "main",
+                tsconfig: "./apps/main/tsconfig.json",
+                include: ["apps/main/{app,src}/**/*.{ts,tsx}"],
+            },
+        ],
     }),
 
     // 🔧 CIBLE apps/* : parser TS type-aware + resolver TS
@@ -36,7 +56,10 @@ export default [
             parser: tseslint.parser,
             parserOptions: {
                 project: [
-                    "./apps/*/tsconfig.json", // ← toutes les apps
+                    "./apps/web/tsconfig.json",
+                    "./apps/desktop/tsconfig.json",
+                    "./apps/mobile/tsconfig.json",
+                    "./apps/main/tsconfig.json",
                     "./packages/types/tsconfig.json",
                     "./packages/domain/tsconfig.json",
                     "./packages/services/tsconfig.json",
@@ -50,7 +73,10 @@ export default [
                 typescript: {
                     alwaysTryTypes: true,
                     project: [
-                        "./apps/*/tsconfig.json",
+                        "./apps/web/tsconfig.json",
+                        "./apps/desktop/tsconfig.json",
+                        "./apps/mobile/tsconfig.json",
+                        "./apps/main/tsconfig.json",
                         "./packages/types/tsconfig.json",
                         "./packages/domain/tsconfig.json",
                         "./packages/services/tsconfig.json",
@@ -58,7 +84,8 @@ export default [
                     ],
                 },
             },
-            next: { rootDir: ["apps/main/", "apps/desktop/", "apps/mobile/"] }, // ajuste selon ton arbo
+            next: { rootDir: ["apps/web/", "apps/desktop/", "apps/mobile/", "apps/main/"] },
+            react: { version: "detect" },
         },
         rules: {
             "react/jsx-no-undef": "error",

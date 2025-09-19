@@ -14,10 +14,7 @@ export default function SearchPageContent() {
     const { results, setResults, menuData, setQuery } = useSearch();
     const [validQuery, setValidQuery] = useState<string>("");
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [storedSlideRef, setStoredSlideRef] = useSessionStorage<number>(
-        "slideRef",
-        0
-    );
+    const [storedSlideRef, setStoredSlideRef] = useSessionStorage<number>("slideRef", 0);
 
     const searchParams = useSearchParams();
     const badKeyWord = searchParams.get("badKeyWord") ?? "";
@@ -38,10 +35,7 @@ export default function SearchPageContent() {
             setQuery(queryFromUrl);
 
             if (Array.isArray(menuData) && menuData.length > 0) {
-                const searchResults: Result[] = searchQuery(
-                    menuData,
-                    queryFromUrl
-                );
+                const searchResults: Result[] = searchQuery(menuData, queryFromUrl);
                 setResults(searchResults);
             } else {
                 setResults([]);
@@ -54,9 +48,7 @@ export default function SearchPageContent() {
             (result: Result, index: number, self: Result[]) =>
                 index ===
                 self.findIndex(
-                    (r) =>
-                        r.path === result.path &&
-                        r.text.trim() === result.text.trim()
+                    (r) => r.path === result.path && r.text.trim() === result.text.trim()
                 )
         );
     }, [results]);
@@ -79,19 +71,14 @@ export default function SearchPageContent() {
                             <button
                                 className="result-link"
                                 onClick={() => {
+                                    const path: string = result.path;
                                     if (result.go) {
-                                        const slideRef =
-                                            result.go.split("=")[1] ?? "0"; // extraction safe
+                                        const slideRef: string = result.go.split("=")[1] ?? "0"; // extraction safe
                                         setStoredSlideRef(result.slideRef); // persist
-                                        const queryString = createQueryString(
-                                            "slideRef",
-                                            slideRef
-                                        );
-                                        router.push(
-                                            `${result.path}?${queryString}`
-                                        );
+                                        const queryString = createQueryString("slideRef", slideRef);
+                                        router.push(`${result.path}?${queryString}`);
                                     } else {
-                                        router.push(result.path);
+                                        router.push(path);
                                     }
                                 }}
                             >
