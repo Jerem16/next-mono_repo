@@ -29,7 +29,7 @@ const SubMenu: React.FC<SubMenuProps> = ({ menuItem, isOpen, onSubItemClick, tri
         subItemScrollOffset: number | undefined,
         e: React.MouseEvent | React.KeyboardEvent
     ) => {
-        if ("button" in e && isModifiedClick(e as React.MouseEvent)) return;
+        if ("button" in e && isModifiedClick(e)) return;
 
         e.preventDefault();
         e.stopPropagation();
