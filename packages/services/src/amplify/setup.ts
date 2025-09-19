@@ -29,7 +29,6 @@ const cfg: AmplifyConfig = { ...(outputs as object), ...(overrides as object) } 
 
 declare global {
     // idempotence côté client/serveur
-    // eslint-disable-next-line no-var
     var __AMPLIFY_CONFIGURED__: boolean | undefined;
 }
 export {};
