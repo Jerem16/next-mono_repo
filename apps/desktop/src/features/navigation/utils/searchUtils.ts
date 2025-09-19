@@ -1,9 +1,4 @@
-export interface SearchItem {
-  id: string;
-  title: string;
-  path: string;
-  text: string;
-}
+import type { Result } from "@src/utils/context/SearchContext";
 
 export const normalizeWord = (word: string) =>
   word
@@ -12,7 +7,7 @@ export const normalizeWord = (word: string) =>
     .trim();
 
 export const filterSuggestions = (
-  items: SearchItem[],
+  items: Result[],
   query: string,
 ): string[] => {
   const normalizedQuery = normalizeWord(query);
