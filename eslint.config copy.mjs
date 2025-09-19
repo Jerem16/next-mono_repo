@@ -15,8 +15,6 @@ export default [
             "**/.next/**",
             "**/node_modules/**",
             "**/eslint.config.js",
-            "apps/web/next-env.d.ts",
-            "apps/web/next.config.ts",
         ],
     },
 
@@ -24,8 +22,13 @@ export default [
     // (Ton package interne applique déjà @next/eslint-plugin-next core-web-vitals
     // et désactive seulement no-html-link-for-pages pour l’App Router)
     ...makeNextConfig({
-        webProject: "./apps/web/tsconfig.json",
-        include: ["apps/web/{app,src}/**/*.{ts,tsx}"],
+        apps: [
+            {
+                name: "main",
+                tsconfig: "./apps/main/tsconfig.json",
+                include: ["apps/main/{app,src}/**/*.{ts,tsx}"],
+            },
+        ],
     }),
 
     // 🔧 CIBLE apps/* : parser TS type-aware + resolver TS

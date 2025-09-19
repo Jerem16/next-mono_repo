@@ -14,12 +14,11 @@ Monorepo minimal conforme à:
 ```bash
 # À la racine
 yarn
-yarn dev        # lance apps/web
+yarn dev        # lance apps/main
 ```
 
 ## Structure
 
-- `apps/web` : App Next.js 15
 - `apps/mobile` : App Next.js 15
 - `apps/desktop` : App Next.js 15
 - `apps/main` : App Next.js 15

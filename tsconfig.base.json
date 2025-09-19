@@ -17,8 +17,6 @@
             "@packages/types/*": ["packages/types/src/*"],
             "@packages/domain": ["packages/domain/src"],
             "@packages/domain/*": ["packages/domain/src/*"],
-            "@web": ["apps/web"],
-            "@web/*": ["apps/web/*"],
             "@desktop": ["apps/desktop"],
             "@desktop/*": ["apps/desktop/*"],
             "@mobile": ["apps/mobile"],
@@ -32,7 +30,6 @@
         { "path": "packages/domain" },
         { "path": "packages/services" },
         { "path": "packages/ui" },
-        { "path": "apps/web" },
         { "path": "apps/desktop" },
         { "path": "apps/mobile" },
         { "path": "apps/main" }

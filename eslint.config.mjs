@@ -15,8 +15,6 @@ export default [
             "**/.next/**",
             "**/node_modules/**",
             "**/eslint.config.js",
-            "apps/web/next-env.d.ts",
-            "apps/web/next.config.ts",
         ],
     },
 
@@ -25,11 +23,6 @@ export default [
     // et désactive seulement no-html-link-for-pages pour l’App Router)
     ...makeNextConfig({
         apps: [
-            {
-                name: "web",
-                tsconfig: "./apps/web/tsconfig.json",
-                include: ["apps/web/{app,src}/**/*.{ts,tsx}"],
-            },
             {
                 name: "desktop",
                 tsconfig: "./apps/desktop/tsconfig.json",
@@ -56,7 +49,6 @@ export default [
             parser: tseslint.parser,
             parserOptions: {
                 project: [
-                    "./apps/web/tsconfig.json",
                     "./apps/desktop/tsconfig.json",
                     "./apps/mobile/tsconfig.json",
                     "./apps/main/tsconfig.json",
@@ -73,7 +65,6 @@ export default [
                 typescript: {
                     alwaysTryTypes: true,
                     project: [
-                        "./apps/web/tsconfig.json",
                         "./apps/desktop/tsconfig.json",
                         "./apps/mobile/tsconfig.json",
                         "./apps/main/tsconfig.json",
@@ -84,7 +75,7 @@ export default [
                     ],
                 },
             },
-            next: { rootDir: ["apps/web/", "apps/desktop/", "apps/mobile/", "apps/main/"] },
+            next: { rootDir: ["apps/desktop/", "apps/mobile/", "apps/main/"] },
             react: { version: "detect" },
         },
         rules: {
