@@ -2,7 +2,8 @@ import React from "react";
 import RenderInputButton from "./RenderInputButton";
 import HiddenDelayComponent from "@src/features/navigation/components/utils/HiddenDelayComponent";
 import { getShowClass } from "@src/features/navigation/components/utils/menuUtils";
-import { MenuItem } from "@nav-types/menu";
+// import { MenuItem } from "@src/features/navigation/types/menu";
+import { MenuItem } from "@src/features/navigation/types/menu";
 import { svgComponents } from "../svgComponents";
 interface RenderInputProps {
     isSubmitted: boolean;

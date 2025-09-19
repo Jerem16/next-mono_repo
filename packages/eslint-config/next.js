@@ -24,6 +24,21 @@ export default function makeNextConfig({
             tsconfig: "./apps/web/tsconfig.json",
             include: ["apps/web/{app,src}/**/*.{ts,tsx}"],
         },
+        {
+            name: "main",
+            tsconfig: "./apps/main/tsconfig.json",
+            include: ["apps/main/{app,src}/**/*.{ts,tsx}"],
+        },
+        {
+            name: "desktop",
+            tsconfig: "./apps/desktop/tsconfig.json",
+            include: ["apps/desktop/{app,src}/**/*.{ts,tsx}"],
+        },
+        {
+            name: "mobile",
+            tsconfig: "./apps/mobile/tsconfig.json",
+            include: ["apps/mobile/{app,src}/**/*.{ts,tsx}"],
+        },
     ],
 } = {}) {
     const blocks = [];

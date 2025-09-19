@@ -4,11 +4,11 @@ import { aboutContent } from "./about";
 import { serviceContent } from "./services";
 import { contactAnnouncements, socialLinks, contactDetails } from "./contact";
 
-import { Content } from "@nav-types/content";
+import { Content } from "@src/features/navigation/types/content";
 
 export const contentIndex: Record<string, Content[]> = {
-  "#slider": [...sliderContent, ...sliderInfo],
-  "#about": aboutContent,
-  "#services": serviceContent,
-  "#contact": [...contactAnnouncements, ...contactDetails, ...socialLinks],
+    "#slider": [...sliderContent, ...sliderInfo],
+    "#about": aboutContent,
+    "#services": serviceContent,
+    "#contact": [...contactAnnouncements, ...contactDetails, ...socialLinks],
 };

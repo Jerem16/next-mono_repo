@@ -10,7 +10,7 @@ import {
     currentSectionId,
     handleScrollClick,
 } from "./fnScrollUtils";
-import type { MenuItem, SubItem } from "@nav-types/menu";
+import type { MenuItem, SubItem } from "@src/features/navigation/types/menu";
 
 /**
  * Détermine l'offset de défilement à appliquer.

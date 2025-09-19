@@ -1,6 +1,6 @@
 import { useEffect, useRef, useCallback } from "react";
 import { MenuItem } from "@src/features/navigation/data/menuItems";
-import { SubItem } from "@nav-types/menu";
+import { SubItem } from "@src/features/navigation/types/menu";
 import { useNavigation } from "@utils/context/NavigationContext";
 
 export const isMainItemActive = (itemPath: string | undefined, currentRoute: string): boolean => {

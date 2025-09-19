@@ -4,6 +4,8 @@ import path from "node:path";
 import makeNextConfig from "./packages/eslint-config/next.js";
 import tseslint from "typescript-eslint";
 import importPlugin from "eslint-plugin-import";
+import reactPlugin from "eslint-plugin-react";
+import reactHooksPlugin from "eslint-plugin-react-hooks";
 
 const tsconfigRootDir = path.dirname(fileURLToPath(new URL("./package.json", import.meta.url)));
 
@@ -11,18 +13,17 @@ export default [
     // Ignorés globalement
     {
         ignores: [
+            "**/*.d.ts",
             "**/dist/**",
             "**/.next/**",
             "**/node_modules/**",
             "**/eslint.config.js",
-            "apps/web/next-env.d.ts",
-            "apps/web/next.config.ts",
+            "apps/*/next-env.d.ts",
+            "apps/*/next.config.ts",
         ],
     },
 
-    // ✅ Preset Next + React + TS (core-web-vitals SANS modification)
-    // (Ton package interne applique déjà @next/eslint-plugin-next core-web-vitals
-    // et désactive seulement no-html-link-for-pages pour l’App Router)
+    // ✅ Preset Next (core-web-vitals) pour TOUTES les apps
     ...makeNextConfig({
         apps: [
             {
@@ -48,10 +49,15 @@ export default [
         ],
     }),
 
-    // 🔧 CIBLE apps/* : parser TS type-aware + resolver TS
+    // 🔧 apps/* : parser TS type-aware + resolver TS + règles communes
     {
         files: ["apps/*/{app,src}/**/*.{ts,tsx}"],
-        plugins: { import: importPlugin },
+        plugins: {
+            import: importPlugin,
+            "@typescript-eslint": tseslint.plugin,
+            react: reactPlugin,
+            "react-hooks": reactHooksPlugin,
+        },
         languageOptions: {
             parser: tseslint.parser,
             parserOptions: {
@@ -66,6 +72,8 @@ export default [
                     "./packages/ui/tsconfig.json",
                 ],
                 tsconfigRootDir,
+                projectService: true,
+                noWarnOnMultipleProjects: true,
             },
         },
         settings: {
@@ -96,13 +104,20 @@ export default [
             "@typescript-eslint/no-unsafe-assignment": "warn",
             "@typescript-eslint/no-unsafe-return": "warn",
             "@typescript-eslint/no-redundant-type-constituents": "warn",
+            "react-hooks/rules-of-hooks": "error",
+            "react-hooks/exhaustive-deps": "warn",
         },
     },
 
-    // 🔧 packages : type-aware strict
+    // 🔧 packages/* : parser TS type-aware + resolver TS
     {
         files: ["packages/**/*.{ts,tsx}"],
-        plugins: { import: importPlugin }, // ❌ pas de "@typescript-eslint" ici non plus
+        plugins: {
+            import: importPlugin,
+            "@typescript-eslint": tseslint.plugin,
+            react: reactPlugin,
+            "react-hooks": reactHooksPlugin,
+        },
         languageOptions: {
             parser: tseslint.parser,
             parserOptions: {
@@ -113,6 +128,8 @@ export default [
                     "./packages/ui/tsconfig.json",
                 ],
                 tsconfigRootDir,
+                projectService: true,
+                noWarnOnMultipleProjects: true,
             },
         },
         settings: {
@@ -126,6 +143,7 @@ export default [
                     ],
                 },
             },
+            react: { version: "detect" },
         },
         rules: {
             "import/no-unresolved": "error",
