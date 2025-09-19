@@ -1,4 +1,3 @@
-/* eslint-disable-next-line */
 export let currentSectionId = "";
 
 export function scrollInView(sections: { id: string }[]) {

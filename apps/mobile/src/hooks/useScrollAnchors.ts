@@ -9,7 +9,6 @@ import type {
     SectionPosition,
 } from "../workers/scrollWorker";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const useScrollAnchors = (_sections: { id: string }[]) => {
     const { setActiveSection } = useScrollContext();
 

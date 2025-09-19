@@ -1,13 +1,13 @@
 
 import { useContext } from "react";
+
 export const createUseContext = <T,>(
-    /* eslint-disable @typescript-eslint/no-explicit-any */ 
-    context: React.Context<T | any>,
+    context: React.Context<T | null | undefined>,
     name: string
 ) => {
     return () => {
         const ctx = useContext(context);
-        if (ctx === undefined) {
+        if (ctx == null) {
             throw new Error(
                 `${name} must be used within a ${name.replace(
                     "use",
@@ -15,6 +15,7 @@ export const createUseContext = <T,>(
                 )}Provider`
             );
         }
+
         return ctx;
     };
 };

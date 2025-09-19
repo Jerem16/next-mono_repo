@@ -8,13 +8,9 @@
         "strict": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["./*"],
-            "@apps/*": ["apps/web/*"],
-            "@app/*": ["apps/web/app/*"],
-            "@src/*": ["apps/web/src/*"],
-            "@packages/ui": ["packages/ui/src"],
             "@amplify": ["amplify"],
             "@amplify/*": ["amplify/*"],
+            "@packages/ui": ["packages/ui/src"],
             "@packages/ui/*": ["packages/ui/src/*"],
             "@packages/services": ["packages/services/src"],
             "@packages/services/*": ["packages/services/src/*"],
@@ -38,7 +34,13 @@
             "path": "packages/ui"
         },
         {
-            "path": "apps/web"
+            "path": "apps/main"
+        },
+        {
+            "path": "apps/desktop"
+        },
+        {
+            "path": "apps/mobile"
         }
     ]
 }

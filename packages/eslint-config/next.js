@@ -8,27 +8,26 @@ const tsconfigRootDir = path.dirname(fileURLToPath(new URL("../../package.json",
 const nextRules = nextPlugin.configs["core-web-vitals"].rules;
 
 export default function makeNextConfig({
-    webProject = "./apps/web/tsconfig.json",
-    include = ["apps/web/{app,src}/**/*.{ts,tsx}"],
+    projects = ["./apps/main/tsconfig.json"],
+    include = ["apps/main/{app,src}/**/*.{ts,tsx}"],
+    rootDir = ["apps/main"],
 } = {}) {
     return [
         ...reactConfig,
-
-        // Bloc Next + TS (type-checked). Le consumer passera le tsconfig de l'app.
         {
             files: include,
             plugins: { "@next/next": nextPlugin },
             languageOptions: {
                 parserOptions: {
-                    project: [webProject],
-                    tsconfigRootDir, // racine monorepo
+                    project: projects,
+                    tsconfigRootDir,
                 },
             },
-            settings: { next: { rootDir: ["apps/web/"] } },
+            settings: { next: { rootDir } },
             rules: {
                 ...nextRules,
                 "@next/next/no-html-link-for-pages": "off",
-                // TypeScript "unsafe" → trop verbeux dans l'app Next
+                "@typescript-eslint/no-explicit-any": "error",
                 "@typescript-eslint/no-unsafe-call": "off",
                 "@typescript-eslint/no-unsafe-member-access": "off",
                 "@typescript-eslint/no-unsafe-return": "off",
