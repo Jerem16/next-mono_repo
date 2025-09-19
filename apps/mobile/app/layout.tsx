@@ -1,4 +1,4 @@
-import HeaderLazy from "../src/components/header/HeaderLazy";
+import HeaderLazy from "@src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
 import dynamic from "next/dynamic";
 

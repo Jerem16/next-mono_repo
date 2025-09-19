@@ -1,4 +1,4 @@
-import Frames from "@/src/components/frames/Frames";
+import Frames from "@src/components/frames/Frames";
 
 export default function Page() {
     return (

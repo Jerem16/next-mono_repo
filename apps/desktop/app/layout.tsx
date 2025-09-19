@@ -1,11 +1,11 @@
 import localFont from "next/font/local";
 import "../src/assets/styles/main.scss";
-import { SearchProvider } from "@/src/utils/context/SearchContext";
+import { SearchProvider } from "@src/utils/context/SearchContext";
 import { Suspense } from "react";
 import HeaderProps from "./headerProps";
 import ScrollProvider from "../src/utils/context/ScrollContext";
 import ScrollSectionsWrapper from "./ScrollSectionsWrapper";
-import Loader from "@/src/components/loader/Loader";
+import Loader from "@src/components/loader/Loader";
 
 export const RobotoFlex = localFont({
     src: "/fonts/RobotoFlex.woff2",

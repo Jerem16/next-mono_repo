@@ -14,9 +14,6 @@
         "baseUrl": "../..",
         "paths": {
             "@/*": ["./*"],
-            "@apps/*": ["apps/web/*"],
-            "@app/*": ["apps/web/app/*"],
-            "@src/*": ["apps/web/src/*"],
             "@amplify": ["amplify"],
             "@amplify/*": ["amplify/*"],
             "@packages/ui": ["packages/ui/src"],
@@ -27,12 +24,15 @@
             "@packages/services/*": ["packages/services/src/*"],
             "@packages/types": ["packages/types/src"],
             "@packages/types/*": ["packages/types/src/*"],
-            "@assets/*": ["apps/web/src/assets/*"],
-            "@components/*": ["apps/web/src/components/*"],
-            "@hooks/*": ["apps/web/src/hooks/*"],
-            "@context/*": ["apps/web/src/context/*"],
-            "@utils/*": ["apps/web/src/utils/*"],
-            "@public/*": ["apps/web/public/*"]
+            "@apps/*": ["apps/*"],
+            "@app/*": ["apps/desktop/app/*"],
+            "@src/*": ["apps/desktop/src/*"],
+            "@assets/*": ["apps/desktop/src/assets/*"],
+            "@components/*": ["apps/desktop/src/components/*"],
+            "@hooks/*": ["apps/desktop/src/hooks/*"],
+            "@context/*": ["apps/desktop/src/context/*"],
+            "@utils/*": ["apps/desktop/src/utils/*"],
+            "@public/*": ["apps/desktop/public/*"]
         },
         "plugins": [{ "name": "next" }]
     },

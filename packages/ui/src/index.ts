@@ -1,1 +1,2 @@
-export * from "./markdown/MarkdownViewer";
+export * from "./MarkdownViewer";
+export * from "./auth";

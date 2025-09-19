@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useSearch } from "@/src/utils/context/SearchContext";
-import type { Result } from "@/src/utils/context/SearchContext";
-import searchQuery from "@/src/features/navigation/utils/searchMenu";
-import useSessionStorage from "@/src/utils//sessionStorage/useSessionStorage";
+import { useSearch } from "@src/utils/context/SearchContext";
+import type { Result } from "@src/utils/context/SearchContext";
+import searchQuery from "@src/features/navigation/utils/searchMenu";
+import useSessionStorage from "@src/utils//sessionStorage/useSessionStorage";
 // Si tu as supprimé le hook ci-dessus, remplace la ligne par :
 // const useSessionStorage = <T,>(k: string, init: T): [T, (v: T) => void] => useState<T>(init);
 
