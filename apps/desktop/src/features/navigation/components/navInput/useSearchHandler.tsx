@@ -1,7 +1,8 @@
 import { useState, useCallback } from "react";
 import { useSearch } from "@utils/context/SearchContext";
+import type { Result } from "@utils/context/SearchContext";
 import searchQuery from "@src/features/navigation/utils/searchMenu";
-import { filterSuggestions, SearchItem } from "@src/features/navigation/utils/searchUtils";
+import { filterSuggestions } from "@src/features/navigation/utils/searchUtils";
 import { useRouter } from "next/navigation";
 import { useURLParams } from "@src/features/navigation/utils/useURLParams";
 
@@ -14,7 +15,7 @@ const useSearchHandler = (
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
     const [isSubResultOpen, setSubResultOpen] = useState<boolean>(false);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [filteredItems, setFilteredItems] = useState<SearchItem[]>([]);
+    const [filteredItems, setFilteredItems] = useState<Result[]>([]);
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [noResultsFound, setNoResultsFound] = useState(false);
 

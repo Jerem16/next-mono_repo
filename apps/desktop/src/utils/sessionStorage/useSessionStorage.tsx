@@ -44,6 +44,7 @@ export default function useSessionStorage<T>(key: string, initialValue: T) {
 
         const item = sessionStorage.getItem(key);
         return parseStoredValue(item, initialValue);
+
     });
 
     useEffect(() => {
