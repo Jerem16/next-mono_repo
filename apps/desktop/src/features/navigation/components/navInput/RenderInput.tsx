@@ -58,7 +58,7 @@ const RenderInput: React.FC<RenderInputProps> = ({
                             onKeyDown={(e) => {
                                 if (e.key === "Enter") {
                                     e.preventDefault();
-                                    handleSubmit(e as React.KeyboardEvent<HTMLInputElement>);
+                                    handleSubmit(e);
                                 }
                             }}
                             className={`nav-link ${getShowClass(
