@@ -9,7 +9,7 @@ export default function useSessionStorage<T>(key: string, initialValue: T) {
             return initialValue;
         }
         const item = sessionStorage.getItem(key);
-        return item ? JSON.parse(item) : initialValue;
+        return item ? (JSON.parse(item) as T) : initialValue;
     });
 
     useEffect(() => {
