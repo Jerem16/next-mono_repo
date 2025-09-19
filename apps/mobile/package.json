@@ -6,7 +6,7 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
+        "lint": "yarn --cwd ../.. eslint --config eslint.config.mjs --max-warnings=0 --ext .ts,.tsx,.js,.jsx apps/mobile",
         "tsc": "tsc --noEmit",
         "format": "prettier --write .",
         "test": "echo \"(placeholder)\""

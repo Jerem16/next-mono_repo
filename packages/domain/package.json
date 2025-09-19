@@ -21,7 +21,7 @@
     "scripts": {
         "build": "tsc --build",
         "tsc": "tsc --noEmit",
-        "lint": "eslint -c eslint.config.js .",
+        "lint": "yarn --cwd ../.. eslint --config eslint.config.mjs --max-warnings=0 --ext .ts,.tsx packages/domain",
         "test": "echo \"(placeholder)\""
     },
     "dependencies": {

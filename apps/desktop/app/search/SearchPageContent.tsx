@@ -13,8 +13,7 @@ export default function SearchPageContent() {
     const router = useRouter();
     const { results, setResults, menuData, setQuery } = useSearch();
     const [validQuery, setValidQuery] = useState<string>("");
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [storedSlideRef, setStoredSlideRef] = useSessionStorage<number>(
+    const [, setStoredSlideRef] = useSessionStorage<number>(
         "slideRef",
         0
     );

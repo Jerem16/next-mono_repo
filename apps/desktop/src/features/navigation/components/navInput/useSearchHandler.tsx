@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { useSearch } from "@utils/context/SearchContext";
 import searchQuery from "@nav-utils/searchMenu";
-import { filterSuggestions, SearchItem } from "@nav-utils/searchUtils";
+import { filterSuggestions } from "@nav-utils/searchUtils";
 import { useRouter } from "next/navigation";
 import { useURLParams } from "@nav-utils/useURLParams";
 
@@ -13,10 +13,6 @@ const useSearchHandler = (
   const [suggestions, setSuggestions] = useState<string[]>([]);
   const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const [isSubResultOpen, setSubResultOpen] = useState<boolean>(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [filteredItems, setFilteredItems] = useState<SearchItem[]>([]);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [noResultsFound, setNoResultsFound] = useState(false);
 
   const { setParam, deleteParam } = useURLParams(); // Utiliser le hook pour gérer les paramètres de l'URL
 
@@ -42,8 +38,7 @@ const useSearchHandler = (
   );
 
   const handleSubmit = (
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    e?:
+    _event?:
       | React.FormEvent<HTMLFormElement>
       | React.KeyboardEvent<HTMLInputElement>
       | React.MouseEvent<HTMLButtonElement>,
@@ -75,10 +70,8 @@ const useSearchHandler = (
 
       setQuery(suggestion);
       setResults(resultsForSuggestion);
-      setFilteredItems(resultsForSuggestion);
       setSubResultOpen(false);
       setIsSubmitted(true);
-      setNoResultsFound(resultsForSuggestion.length === 0);
 
       // Update URL based on the suggestion
       if (resultsForSuggestion.length === 0) {

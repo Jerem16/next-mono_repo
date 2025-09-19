@@ -1,10 +1,11 @@
 {
+    "extends": "../../tsconfig.base.json",
     "compilerOptions": {
         "target": "ES2017",
         "lib": ["dom", "dom.iterable", "esnext"],
         "allowJs": true,
         "skipLibCheck": true,
-        "strict": false,
+        "strict": true,
         "noEmit": true,
         "incremental": true,
         "module": "esnext",
@@ -13,29 +14,25 @@
         "resolveJsonModule": true,
         "isolatedModules": true,
         "jsx": "preserve",
+        "baseUrl": "../..",
+        "paths": {
+            "@/*": ["apps/main/*"],
+            "@app/*": ["apps/main/app/*"],
+            "@src/*": ["apps/main/src/*"],
+            "@public/*": ["apps/main/public/*"]
+        },
         "plugins": [
             {
                 "name": "next"
             }
-        ],
-        "strictNullChecks": true
+        ]
     },
     "include": [
         "next-env.d.ts",
         ".next/types/**/*.ts",
         "**/*.ts",
         "**/*.tsx",
-        "src/utils/context/NavigationContext.tsx",
-        "src/components/header/utils/HiddenDelayComponent.tsx",
-        "app/headerProps.jsx",
-        "src/components/svg_Icon/utils/Arrow.jsx",
-        "src/components/slider/Slider.tsx",
-        "src/components/slider/SliderArrow.jsx",
-        "src/components/slider/SunBG.tsx",
-        "src/utils/context/utils/createUseContext.tsx",
-        "src/components/header/HeaderGhost.jsx",
-        "src/home/service/Component/servicesData.js",
-        "src/utils/setT.js"
-, "middleware.ts"    ],
+        "middleware.ts"
+    ],
     "exclude": ["node_modules"]
 }
