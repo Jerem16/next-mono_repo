@@ -1,4 +1,4 @@
-import { AboutContent } from "@src/features/navigation/types/content";
+import type { AboutContent } from "@src/features/navigation/types/content";
 
 export const aboutContent: AboutContent[] = [
     {

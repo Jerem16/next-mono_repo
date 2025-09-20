@@ -4,14 +4,10 @@ import { useNavigation } from "../../utils/context/NavigationContext";
 import MenuIcon from "@components/svg_Icon/utils/MenuIcon";
 
 const ButtonOpen = () => {
-    const { hamburgerMenuIsOpen, openHamburgerMenu, closeHamburgerMenu } = useNavigation();
+    const { hamburgerMenuIsOpen, toggleHamburgerMenu } = useNavigation();
     const handleClick = useCallback(() => {
-        if (hamburgerMenuIsOpen) {
-            closeHamburgerMenu(1);
-        } else {
-            openHamburgerMenu();
-        }
-    }, [hamburgerMenuIsOpen, openHamburgerMenu, closeHamburgerMenu]);
+        toggleHamburgerMenu();
+    }, [toggleHamburgerMenu]);
 
     return (
         <button

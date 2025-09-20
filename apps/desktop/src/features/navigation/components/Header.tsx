@@ -5,7 +5,8 @@ import Nav from "./Nav";
 import Logo from "@src/features/navigation/icons/Logo";
 import { useScrollContext } from "@utils/context/ScrollContext";
 import { useNavigation } from "@utils/context/NavigationContext";
-import { MenuItem, menuItems } from "@src/features/navigation/data/menuItems";
+import type { MenuItem } from "@src/features/navigation/data/menuItems";
+import { menuItems } from "@src/features/navigation/data/menuItems";
 import { updateMenuClasses } from "@src/features/navigation/utils/updateMenuUtils";
 import { handleScrollClick, handleNavClick } from "@src/features/navigation/utils/fnScrollUtils";
 import { useInitialScroll } from "@src/features/navigation/utils/scrollUtils";
@@ -57,6 +58,7 @@ const Header: React.FC<NavProps> = () => {
                 href="/#slider"
                 aria-label="Retour à la page d'accueil : Peur de la conduite"
                 className="logo-link"
+                prefetch={false}
             >
                 <Logo />
             </Link>

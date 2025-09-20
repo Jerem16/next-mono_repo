@@ -1,5 +1,5 @@
 import React from "react";
-import { MenuItem } from "@src/features/navigation/data/menuItems";
+import type { MenuItem } from "@src/features/navigation/data/menuItems";
 import SubResult from "./SubResult";
 import useSearchHandler from "./useSearchHandler";
 import { useRouter } from "next/navigation";

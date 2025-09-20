@@ -1,6 +1,7 @@
 "use client";
 import React, { createContext, useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
+import { type MenuCloseReason, useMenu } from "@ui/navigation/menuState";
 interface NavigationContextType {
     currentRoute: string;
     updateRoute: (path: string) => void;
@@ -8,7 +9,8 @@ interface NavigationContextType {
     setOpenSubMenu: (subMenuId: string | null) => void;
     hamburgerMenuIsOpen: boolean;
     openHamburgerMenu: () => void;
-    closeHamburgerMenu: (delay?: number) => void;
+    closeHamburgerMenu: (reason?: MenuCloseReason) => void;
+    toggleHamburgerMenu: () => void;
 }
 const NavigationContext = createContext<NavigationContextType | undefined>(
     undefined
@@ -16,9 +18,9 @@ const NavigationContext = createContext<NavigationContextType | undefined>(
 const useNavigationState = () => {
     const router = useRouter();
     const pathname = usePathname();
+    const { isOpen, open, close, toggle } = useMenu();
     const [currentRoute, setCurrentRoute] = useState(pathname || "/");
     const [openSubMenu, setOpenSubMenu] = useState<string | null>(null);
-    const [hamburgerMenuIsOpen, setHamburgerMenuIsOpen] = useState(false);
     useEffect(() => {
         setCurrentRoute(pathname || "/");
     }, [pathname]);
@@ -26,18 +28,15 @@ const useNavigationState = () => {
         setCurrentRoute(path);
         router.push(path);
     };
-    const openHamburgerMenu = () => setHamburgerMenuIsOpen(true);
-    const closeHamburgerMenu = (delay: number = 0) => {
-        setTimeout(() => setHamburgerMenuIsOpen(false), delay);
-    };
     return {
         currentRoute,
         updateRoute,
         openSubMenu,
         setOpenSubMenu,
-        hamburgerMenuIsOpen,
-        openHamburgerMenu,
-        closeHamburgerMenu,
+        hamburgerMenuIsOpen: isOpen,
+        openHamburgerMenu: open,
+        closeHamburgerMenu: close,
+        toggleHamburgerMenu: toggle,
     };
 };
 export const NavigationProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {

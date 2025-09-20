@@ -1,4 +1,4 @@
-import { Content } from "@src/features/navigation/types/content"; // Assurez-vous que "Content" est importé
+import type { Content } from "@src/features/navigation/types/content"; // Assurez-vous que "Content" est importé
 
 export interface SubItem {
     id: string;

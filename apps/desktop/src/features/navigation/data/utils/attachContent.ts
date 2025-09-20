@@ -1,5 +1,5 @@
-import { MenuLinks } from "@src/features/navigation/types/menu";
-import { Content } from "@src/features/navigation/types/content"; // Assurez-vous d'importer Content
+import type { MenuLinks } from "@src/features/navigation/types/menu";
+import type { Content } from "@src/features/navigation/types/content"; // Assurez-vous d'importer Content
 
 export function attachContentToMenu(
     menu: MenuLinks,

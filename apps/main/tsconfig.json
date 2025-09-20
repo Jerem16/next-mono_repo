@@ -1,41 +1,23 @@
 {
-    "compilerOptions": {
-        "target": "ES2017",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "strict": false,
-        "noEmit": true,
-        "incremental": true,
-        "module": "esnext",
-        "esModuleInterop": true,
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "plugins": [
-            {
-                "name": "next"
-            }
-        ],
-        "strictNullChecks": true
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "incremental": true,
+    "noEmit": true,
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@ui/*": ["../../packages/ui/src/*"],
+      "@domain/*": ["../../packages/domain/src/*"],
+      "@services/*": ["../../packages/services/src/*"],
+      "@types/*": ["../../packages/types/src/*"]
     },
-    "include": [
-        "next-env.d.ts",
-        ".next/types/**/*.ts",
-        "**/*.ts",
-        "**/*.tsx",
-        "src/utils/context/NavigationContext.tsx",
-        "src/components/header/utils/HiddenDelayComponent.tsx",
-        "app/headerProps.jsx",
-        "src/components/svg_Icon/utils/Arrow.jsx",
-        "src/components/slider/Slider.tsx",
-        "src/components/slider/SliderArrow.jsx",
-        "src/components/slider/SunBG.tsx",
-        "src/utils/context/utils/createUseContext.tsx",
-        "src/components/header/HeaderGhost.jsx",
-        "src/home/service/Component/servicesData.js",
-        "src/utils/setT.js"
-, "middleware.ts"    ],
-    "exclude": ["node_modules"]
+    "plugins": [{ "name": "next" }]
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules"]
 }

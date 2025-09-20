@@ -2,7 +2,7 @@
 "use client";
 
 import { useMemo, memo } from "react";
-import { MenuItem } from "../../assets/data/menuItems";
+import type { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import { makePayloadClickHandler, makeActivationHandler } from "@utils/handlers";
 
@@ -18,8 +18,10 @@ const SubMenu: React.FC<SubMenuProps> = ({ menuItem, isOpen, onSubItemClick }) =
     const handleSubItemClick = useMemo(
         () =>
             makePayloadClickHandler<string>(onSubItemClick, {
-                close: closeHamburgerMenu,
-                delay: 650,
+                debounceMs: 0,
+                after: (_event) => {
+                    closeHamburgerMenu("nav");
+                },
             }),
         [onSubItemClick, closeHamburgerMenu]
     );

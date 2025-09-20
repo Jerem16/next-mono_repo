@@ -1,0 +1,16 @@
+
+Oops! Something went wrong! :(
+
+ESLint: 9.36.0
+
+Error: ENOENT: no such file or directory, stat '/workspace/next-mono_repo/packages/ui/eslint.config.js'
+    at async Object.stat (node:internal/fs/promises:1039:18)
+    at async loadConfigFile (/workspace/next-mono_repo/node_modules/eslint/lib/config/config-loader.js:206:17)
+    at async ConfigLoader.calculateConfigArray (/workspace/next-mono_repo/node_modules/eslint/lib/config/config-loader.js:589:23)
+    at async #calculateConfigArray (/workspace/next-mono_repo/node_modules/eslint/lib/config/config-loader.js:743:23)
+    at async directoryFilter (/workspace/next-mono_repo/node_modules/eslint/lib/eslint/eslint-helpers.js:308:5)
+    at async NodeHfs.<anonymous> (file:///workspace/next-mono_repo/node_modules/@humanfs/core/src/hfs.js:586:29)
+    at async NodeHfs.walk (file:///workspace/next-mono_repo/node_modules/@humanfs/core/src/hfs.js:614:3)
+    at async globSearch (/workspace/next-mono_repo/node_modules/eslint/lib/eslint/eslint-helpers.js:363:20)
+    at async Promise.allSettled (index 0)
+    at async globMultiSearch (/workspace/next-mono_repo/node_modules/eslint/lib/eslint/eslint-helpers.js:454:18)

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MenuItem } from "@src/features/navigation/data/menuItems";
+import type { MenuItem } from "@src/features/navigation/data/menuItems";
 import { useMenuBehavior } from "@src/features/navigation/utils/updateMenuUtils";
 import NavLinkShow from "@src/features/navigation/components/navLink/NavLinkShow";
 import NavInput from "@src/features/navigation/components/navInput/NavInput";

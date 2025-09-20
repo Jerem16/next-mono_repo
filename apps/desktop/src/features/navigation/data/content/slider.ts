@@ -1,4 +1,4 @@
-import { SliderContent } from "@src/features/navigation/types/content";
+import type { SliderContent } from "@src/features/navigation/types/content";
 
 export const sliderContent: SliderContent[] = [
     {

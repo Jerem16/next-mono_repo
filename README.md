@@ -14,22 +14,18 @@ Monorepo minimal conforme à:
 ```bash
 # À la racine
 yarn
-yarn dev        # lance apps/web
+yarn dev        # lance toutes les apps en parallèle
 ```
 
 ## Structure
 
-- `apps/web` : App Next.js 15
-- `apps/mobile` : App Next.js 15
-- `apps/desktop` : App Next.js 15
-- `apps/main` : App Next.js 15
+- `apps/mobile` : App Next.js 15 (responsive)
+- `apps/desktop` : App Next.js 15 (desktop)
+- `apps/main` : App Next.js 15 (landing)
 - `packages/ui` : Composants UI (React, SCSS)
 - `packages/domain` : Logique métier (pure TS)
 - `packages/services` : IO/Orchestration (Amplify, REST, etc.)
 - `packages/types` : Types/contrats partagés
-- `tools` : Configs/outillage
-- `docs` : Documentation
-- `tests` : Dossiers de tests (selon besoin)
 
 ## Aliases TypeScript
 

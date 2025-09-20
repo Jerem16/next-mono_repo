@@ -20,7 +20,7 @@
     },
     "scripts": {
         "build": "tsc --build",
-        "tsc": "tsc --noEmit",
+        "typecheck": "tsc --noEmit",
         "lint": "eslint -c eslint.config.js .",
         "test": "echo \"(placeholder)\""
     },

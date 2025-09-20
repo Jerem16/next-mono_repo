@@ -3,7 +3,7 @@ import RenderInputButton from "./RenderInputButton";
 import HiddenDelayComponent from "@src/features/navigation/components/utils/HiddenDelayComponent";
 import { getShowClass } from "@src/features/navigation/components/utils/menuUtils";
 // import { MenuItem } from "@src/features/navigation/types/menu";
-import { MenuItem } from "@src/features/navigation/types/menu";
+import type { MenuItem } from "@src/features/navigation/types/menu";
 import { svgComponents } from "../svgComponents";
 interface RenderInputProps {
     isSubmitted: boolean;

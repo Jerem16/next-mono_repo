@@ -4,7 +4,7 @@ import { aboutContent } from "./about";
 import { serviceContent } from "./services";
 import { contactAnnouncements, socialLinks, contactDetails } from "./contact";
 
-import { Content } from "@src/features/navigation/types/content";
+import type { Content } from "@src/features/navigation/types/content";
 
 export const contentIndex: Record<string, Content[]> = {
     "#slider": [...sliderContent, ...sliderInfo],

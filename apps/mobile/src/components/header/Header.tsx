@@ -5,7 +5,8 @@ import { usePathname } from "next/navigation";
 import Nav from "./Nav";
 import { useScrollContext } from "@utils/context/ScrollContext";
 import { useNavigation } from "@utils/context/NavigationContext";
-import { MenuItem, menuItems } from "@assets/data/menuItems";
+import type { MenuItem } from "@assets/data/menuItems";
+import { menuItems } from "@assets/data/menuItems";
 import { updateMenuClasses } from "@utils/updateMenuUtils";
 import { useSmoothScroll } from "@utils/useSmoothScroll";
 import { useInitialScroll } from "@utils/scrollUtils";
@@ -18,7 +19,7 @@ interface NavProps {
 
 const Header: React.FC<NavProps> = () => {
     const pathname = usePathname();
-    const { currentRoute, updateRoute, closeHamburgerMenu } = useNavigation();
+    const { currentRoute, updateRoute } = useNavigation();
     const { activeSection } = useScrollContext();
 
     useInitialScroll(pathname);
@@ -28,10 +29,9 @@ const Header: React.FC<NavProps> = () => {
     const handleLogoClick = useMemo(
         () =>
             makeClickHandler(() => {
-                closeHamburgerMenu(200);
                 handleNavigationClick("/#top");
             }),
-        [closeHamburgerMenu, handleNavigationClick]
+        [handleNavigationClick]
     );
 
     const updatedMenuItems = useMemo(

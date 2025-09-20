@@ -2,7 +2,7 @@
 
 import React from "react";
 
-import { MenuItem } from "@src/features/navigation/data/menuItems";
+import type { MenuItem } from "@src/features/navigation/data/menuItems";
 import { svgComponents } from "../svgComponents";
 import HiddenDelayComponent from "@src/features/navigation/components/utils/HiddenDelayComponent";
 import { getShowClass } from "@src/features/navigation/components/utils/menuUtils";

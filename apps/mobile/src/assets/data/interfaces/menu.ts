@@ -1,5 +1,5 @@
 // src/interfaces/menu.ts
-import { SvgIconName } from "@components/header/svgComponents";
+import type { SvgIconName } from "@components/header/svgComponents";
 
 export interface SubItem {
     id: string;

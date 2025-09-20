@@ -19,7 +19,7 @@
  *
  */
 
-import { MenuLinks } from "@src/features/navigation/types/menu";
+import type { MenuLinks } from "@src/features/navigation/types/menu";
 import { contentIndex } from "./content/index";
 export const menuItems: MenuLinks = {
     mainLink: [

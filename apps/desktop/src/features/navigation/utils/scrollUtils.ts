@@ -80,6 +80,7 @@ export const useInitialScroll = (pathname: string | null) => {
             window.addEventListener("hashchange", run);
             return () => window.removeEventListener("hashchange", run);
         }
+        return undefined;
     }, [pathname]);
 };
 

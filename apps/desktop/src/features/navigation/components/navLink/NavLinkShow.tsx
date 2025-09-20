@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { MenuItem } from "@src/features/navigation/data/menuItems";
+import type { MenuItem } from "@src/features/navigation/data/menuItems";
 import SubMenu from "./SubMenu";
 import RenderLink from "./RenderLink";
 import { getShowGroupClass } from "@src/features/navigation/components/utils/menuUtils";

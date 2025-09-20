@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { MenuItem } from "../../assets/data/menuItems";
+import type { MenuItem } from "../../assets/data/menuItems";
 import ButtonOpen from "./ButtonOpen";
 import MenuOpen from "./MenuOpen";
 interface NavProps {

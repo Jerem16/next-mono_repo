@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useState, ReactNode } from "react";
+import React, { useEffect, useState } from "react";
+import type { ReactNode } from "react";
 
 interface HiddenWrapperProps {
   isVisible: boolean; // Contrôle la visibilité initiale
@@ -29,6 +30,7 @@ const HiddenDelayComponent: React.FC<HiddenWrapperProps> = ({
       setIsHidden(false);
       onHiddenChange?.(false); // Mise à jour si visible
     }
+    return undefined;
   }, [isVisible, delay, onHiddenChange]);
 
   return <>{children(isHidden)}</>;

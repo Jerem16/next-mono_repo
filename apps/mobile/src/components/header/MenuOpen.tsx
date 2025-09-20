@@ -1,7 +1,7 @@
 import { useCallback, useMemo, memo } from "react";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import MenuList from "./MenuList";
-import { MenuItem } from "../../assets/data/menuItems";
+import type { MenuItem } from "../../assets/data/menuItems";
 interface NavProps {
     menuItems: {
         mainLink?: MenuItem[];

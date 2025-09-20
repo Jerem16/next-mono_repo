@@ -1,4 +1,4 @@
-import { ServiceContent } from "@src/features/navigation/types/content";
+import type { ServiceContent } from "@src/features/navigation/types/content";
 
 export const serviceContent: ServiceContent[] = [
     {

@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useState, useMemo, ReactNode } from "react";
+import { createContext, useState, useMemo } from "react";
+import type { ReactNode } from "react";
 import { createUseContext } from "./utils/createUseContext";
 
 interface ScrollContextType {

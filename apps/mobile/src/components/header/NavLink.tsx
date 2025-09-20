@@ -3,7 +3,6 @@
 import { useMemo, memo } from "react";
 import dynamic from "next/dynamic";
 import type { MenuItem } from "../../assets/data/menuItems";
-import { useNavigation } from "../../utils/context/NavigationContext";
 import { svgComponents } from "./svgComponents";
 import { makeClickHandler } from "@utils/handlers";
 
@@ -26,7 +25,6 @@ const NavLink: React.FC<NavLinkProps> = ({
     isOpen,
     handleMenuClick,
 }) => {
-    const { closeHamburgerMenu } = useNavigation();
     const SvgIcon = useMemo(() => svgComponents[menuItem.svg], [menuItem.svg]);
 
     const handleClick = useMemo(
@@ -34,21 +32,14 @@ const NavLink: React.FC<NavLinkProps> = ({
             makeClickHandler(() => {
                 // 1er clic : on va sur /pX, on ouvre le sous-menu, le hamburger reste ouvert
                 onNavigationClick(menuItem.path);
-                const wasOpen = isOpen;
                 handleMenuClick(menuItem.id);
-                // Si pas de sous-items OU si c'était déjà ouvert, on ferme le hamburger
-                if (!menuItem.subItems?.length || wasOpen) {
-                    closeHamburgerMenu(500);
-                }
             }),
         [
             onNavigationClick,
             menuItem.path,
             menuItem.id,
-            menuItem.subItems?.length,
             isOpen,
             handleMenuClick,
-            closeHamburgerMenu,
         ]
     );
 

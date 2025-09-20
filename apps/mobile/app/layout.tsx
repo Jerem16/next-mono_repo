@@ -1,6 +1,7 @@
 import HeaderLazy from "@src/components/header/HeaderLazy";
-import ClientLayout from "./ClientLayout";
+import { MenuProvider } from "@ui/navigation/menuState";
 import dynamic from "next/dynamic";
+import ClientLayout from "./ClientLayout";
 
 const NavigationProvider = dynamic(() =>
     import("../src/utils/context/NavigationContext").then(
@@ -27,16 +28,18 @@ export default function RootLayout({
                 <link rel="stylesheet" href="/css/mobileDefer.css" fetchPriority="low" />
             </head>
             <body id="top">
-                <NavigationProvider>
-                    <ClientLayout>
-                        <header>
-                            <div className="content-wrapper">
-                                <HeaderLazy />
-                            </div>
-                        </header>
-                        <main>{children}</main>
-                    </ClientLayout>
-                </NavigationProvider>
+                <MenuProvider>
+                    <NavigationProvider>
+                        <ClientLayout>
+                            <header>
+                                <div className="content-wrapper">
+                                    <HeaderLazy />
+                                </div>
+                            </header>
+                            <main>{children}</main>
+                        </ClientLayout>
+                    </NavigationProvider>
+                </MenuProvider>
             </body>
         </html>
     );
