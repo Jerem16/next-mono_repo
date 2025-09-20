@@ -1,27 +1,22 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "rootDir": "src",
-        "outDir": "dist",
-        "composite": true,
-        "declaration": true,
-        "jsx": "react-jsx",
-        "emitDeclarationOnly": true,
-        "module": "ESNext",
-        "moduleResolution": "Bundler",
-        "tsBuildInfoFile": "./dist/.tsbuildinfo",
-        "baseUrl": ".",
-        "paths": {
-            "@packages/ui/*": ["src/*"],
-            "@packages/services": ["../services/src"],
-            "@packages/services/*": ["../services/src/*"]
-        },
-        "skipLibCheck": true
-    },
-    "include": ["src"],
-    "peerDependencies": {
-        "aws-amplify": ">=6",
-        "@aws-amplify/ui-react": ">=6"
-    },
-    "references": [{ "path": "../types" }, { "path": "../services" }]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist/types",
+    "emitDeclarationOnly": true,
+    "baseUrl": ".",
+    "paths": {
+      "@repo/services": ["../services/src/index.ts"],
+      "@repo/services/*": ["../services/src/*"],
+      "@repo/types": ["../types/src/index.ts"],
+      "@repo/types/*": ["../types/src/*"]
+    }
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../services" },
+    { "path": "../types" }
+  ]
 }

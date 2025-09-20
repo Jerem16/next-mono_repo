@@ -1,4 +1,4 @@
-import type { AuthRule, AuthUser } from "@packages/types";
+import type { AuthRule, AuthUser } from "@repo/types";
 
 export function canAccess(
     user: AuthUser | null,
@@ -19,7 +19,10 @@ export function canAccess(
                 break;
             }
             case "groups": {
-                if (user?.groups && rule.groups?.some((g) => user.groups?.includes(g))) {
+                if (
+                    user?.groups &&
+                    rule.groups?.some((group: string) => user.groups?.includes(group))
+                ) {
                     return true;
                 }
                 break;

@@ -1,3 +1,18 @@
 {
-    "type": "module"
+    "name": "@repo/amplify",
+    "version": "0.0.0",
+    "private": true,
+    "type": "module",
+    "exports": {
+        "./amplify_outputs.json": "./amplify_outputs.json",
+        "./backend": "./backend.ts"
+    },
+    "files": [
+        "amplify_outputs.json",
+        "auth",
+        "backend.ts",
+        "data",
+        "storage",
+        "tsconfig.json"
+    ]
 }

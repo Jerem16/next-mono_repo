@@ -1,20 +1,24 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "rootDir": "src",
-        "outDir": "dist",
-        "composite": true,
-        "declaration": true,
-        "jsx": "react-jsx",
-        "emitDeclarationOnly": true,
-        "module": "ESNext",
-        "moduleResolution": "Bundler",
-        "tsBuildInfoFile": "./dist/.tsbuildinfo",
-        "skipLibCheck": true
-    },
-    "include": ["src"],
-    "peerDependencies": {
-        "aws-amplify": ">=6",
-        "@aws-amplify/ui-react": ">=6"
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist/types",
+    "emitDeclarationOnly": true,
+    "baseUrl": ".",
+    "paths": {
+      "@repo/domain": ["../domain/src/index.ts"],
+      "@repo/domain/*": ["../domain/src/*"],
+      "@repo/types": ["../types/src/index.ts"],
+      "@repo/types/*": ["../types/src/*"],
+      "@repo/amplify": ["../../amplify"],
+      "@repo/amplify/*": ["../../amplify/*"]
     }
+  },
+  "include": ["src"],
+  "references": [
+    { "path": "../domain" },
+    { "path": "../types" }
+  ]
 }

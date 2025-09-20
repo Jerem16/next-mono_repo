@@ -1,6 +1,7 @@
 "use client";
 
-import { createContext, useState, useMemo, ReactNode } from "react";
+import { createContext, useState, useMemo } from "react";
+import type { ReactNode, FC } from "react";
 import { createUseContext } from "./utils/createUseContext";
 
 interface ScrollContextType {
@@ -14,7 +15,7 @@ interface ScrollProviderProps {
     children: ReactNode;
 }
 
-const ScrollProvider = ({ children }: ScrollProviderProps) => {
+const ScrollProvider: FC<ScrollProviderProps> = ({ children }) => {
     const [activeSection, setActiveSection] = useState<string>("");
 
     const contextValue = useMemo(

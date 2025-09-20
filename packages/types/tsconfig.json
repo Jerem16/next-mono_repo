@@ -1,14 +1,11 @@
 {
-    "extends": "../../tsconfig.base.json",
-    "compilerOptions": {
-        "rootDir": "src",
-        "outDir": "dist",
-        "composite": true,
-        "declaration": true,
-        "module": "ESNext",
-        "moduleResolution": "Bundler",
-        "tsBuildInfoFile": "./dist/.tsbuildinfo",
-        "skipLibCheck": true
-    },
-    "include": ["src"]
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "dist/types",
+    "emitDeclarationOnly": true
+  },
+  "include": ["src"]
 }

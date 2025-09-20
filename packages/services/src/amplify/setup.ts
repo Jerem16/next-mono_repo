@@ -1,6 +1,6 @@
 // packages/services/src/amplify/setup.ts
 import { Amplify } from "aws-amplify";
-import outputsRaw from "@web/amplify_outputs.json" with { type: "json" };
+import outputsRaw from "@repo/amplify/amplify_outputs.json" with { type: "json" };
 
 // Un type minimal pour éviter les any/unknown
 type AmplifyOutputsLike = {

@@ -1,38 +1,30 @@
 {
     "name": "root",
     "private": true,
+    "packageManager": "yarn@4.0.0",
     "workspaces": [
         "apps/*",
         "packages/*",
-        "tools/*"
+        "amplify"
     ],
-    "packageManager": "yarn@4.9.4",
     "engines": {
-        "node": "22.19.x"
+        "node": ">=20.17.0 <21"
     },
     "scripts": {
-        "dev": "yarn workspace web dev",
-        "build": "yarn workspace web build",
-        "start": "yarn workspace web start",
-        "tsc": "yarn tsc:packages && yarn tsc:web && yarn tsc:mobile && yarn tsc:mobile && yarn tsc:main",
-        "tsc:packages": "tsc -b packages/tsconfig.json",
-        "tsc:web": "yarn workspace web run tsc",
-        "tsc:mobile": "yarn workspace mobile run tsc",
-        "tsc:desktop": "yarn workspace desktop run tsc",
-        "tsc:main": "yarn workspace main run tsc",
-        "lint": "eslint -f codeframe --max-warnings=0 --no-error-on-unmatched-pattern packages/domain packages/services packages/types packages/ui apps/web apps/desktop apps/mobile",
-        "lint:pretty": "yarn -s lint | % { $_ -replace [regex]::Escape(\"$PWD\\\"), \".\\\" -replace '/', '\\\\' }",
-        "lint:packages": "eslint \"packages/**/*.{ts,tsx,js,jsx}\"",
-        "lint:web": "eslint apps/web",
-        "test": "yarn workspaces foreach -Rvt run test",
-        "test:web": "yarn workspace web run test",
-        "check": "yarn tsc && yarn lint && yarn test",
-        "clean": "yarn workspaces foreach -Rvt run clean || echo \"no clean script\" && rimraf --glob \"packages/*/dist\" \"apps/*/tsconfig.tsbuildinfo\"  \"apps/*/.next\" \"packages/*/build\" \"packages/*/coverage\"",
-        "keep:list": "node /tools/scripts/keep-list.cjs",
-        "keep": "yarn lint && node ./tools/scripts/keep-list.cjs && node ./tools/scripts/keep-functions.cjs",
-        "keep:fn": "node /tools/scripts/keep-functions.cjs",
-        "css:prune": "tsx tools/scripts/css-prune.ts",
-        "css:prune:apply": "tsx tools/scripts/css-prune.ts --apply"
+        "dev": "yarn workspaces foreach -pt --from '{apps/*}' run dev",
+        "build": "turbo run build",
+        "typecheck": "turbo run typecheck --filter=\"@repo/*\"",
+        "lint": "turbo run lint --filter=\"@repo/*\"",
+        "test": "turbo run test",
+        "format": "prettier --cache --write .",
+        "format:check": "prettier --check .",
+        "constraints": "yarn constraints",
+        "dedupe": "yarn dedupe --check"
+    },
+    "lint-staged": {
+        "packages/**/*.{ts,tsx}": [
+            "eslint --fix --max-warnings=0"
+        ]
     },
     "devDependencies": {
         "@eslint/js": "9.35.0",
@@ -51,7 +43,11 @@
         "eslint-plugin-react-hooks": "^5.2.0",
         "eslint-plugin-unused-imports": "^4.2.0",
         "globals": "16.3.0",
+        "lefthook": "^1.7.10",
+        "lint-staged": "^15.2.9",
+        "prettier": "^3.3.3",
         "rimraf": "^6.0.1",
+        "turbo": "^2.0.0",
         "typescript": "^5.9.2",
         "typescript-eslint": "^8.44.0"
     },

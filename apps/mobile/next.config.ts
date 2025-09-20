@@ -3,10 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
     reactStrictMode: true,
     transpilePackages: [
-        "@packages/ui",
-        "@packages/domain",
-        "@packages/services",
-        "@packages/types",
+        "@repo/ui",
+        "@repo/domain",
+        "@repo/services",
+        "@repo/types",
     ],
 };
 

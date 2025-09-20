@@ -1,6 +1,7 @@
 import HeaderLazy from "@src/components/header/HeaderLazy";
 import ClientLayout from "./ClientLayout";
 import dynamic from "next/dynamic";
+import type { ReactNode } from "react";
 
 const NavigationProvider = dynamic(() =>
     import("../src/utils/context/NavigationContext").then(
@@ -11,7 +12,7 @@ const NavigationProvider = dynamic(() =>
 export default function RootLayout({
     children,
 }: Readonly<{
-    children: React.ReactNode;
+    children: ReactNode;
 }>) {
     return (
         <html lang="fr-FR">

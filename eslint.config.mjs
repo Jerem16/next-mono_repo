@@ -91,6 +91,9 @@ export default [
                         "./packages/ui/tsconfig.json",
                     ],
                 },
+                node: {
+                    extensions: [".mjs", ".js", ".ts", ".tsx", ".json"],
+                },
             },
             next: { rootDir: ["apps/web/", "apps/desktop/", "apps/mobile/", "apps/main/"] },
             react: { version: "detect" },
@@ -126,6 +129,7 @@ export default [
                     "./packages/services/tsconfig.json",
                     "./packages/types/tsconfig.json",
                     "./packages/ui/tsconfig.json",
+                    "./amplify/tsconfig.json",
                 ],
                 tsconfigRootDir,
                 projectService: true,
@@ -140,13 +144,56 @@ export default [
                         "./packages/services/tsconfig.json",
                         "./packages/types/tsconfig.json",
                         "./packages/ui/tsconfig.json",
+                        "./amplify/tsconfig.json",
                     ],
+                },
+                node: {
+                    extensions: [".mjs", ".js", ".ts", ".tsx", ".json"],
                 },
             },
             react: { version: "detect" },
         },
         rules: {
             "import/no-unresolved": "error",
+        },
+    },
+    {
+        files: ["**/*.{ts,tsx}"],
+        plugins: {
+            import: importPlugin,
+        },
+        rules: {
+            "import/no-restricted-paths": [
+                "error",
+                {
+                    zones: [
+                        {
+                            target: "./apps",
+                            from: "./packages/*/src",
+                            message:
+                                "Importe via le nom du package (ex: @repo/ui), pas en deep import vers src.",
+                        },
+                        {
+                            target: "./apps",
+                            from: "./apps/*",
+                            except: [],
+                            message: "Pas d'import app→app.",
+                        },
+                    ],
+                },
+            ],
+        },
+    },
+    {
+        files: ["packages/**/*.{ts,tsx}"],
+        plugins: {
+            "@typescript-eslint": tseslint.plugin,
+        },
+        rules: {
+            "@typescript-eslint/consistent-type-imports": [
+                "error",
+                { prefer: "type-imports" }
+            ],
         },
     },
 ];

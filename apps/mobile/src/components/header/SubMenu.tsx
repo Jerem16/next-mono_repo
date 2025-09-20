@@ -1,8 +1,8 @@
 // SubMenu.tsx
 "use client";
 
-import { useMemo, memo } from "react";
-import { MenuItem } from "../../assets/data/menuItems";
+import { useMemo, memo, type FC } from "react";
+import type { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import { makePayloadClickHandler, makeActivationHandler } from "@utils/handlers";
 
@@ -12,7 +12,7 @@ interface SubMenuProps {
     onSubItemClick: (path: string) => void;
 }
 
-const SubMenu: React.FC<SubMenuProps> = ({ menuItem, isOpen, onSubItemClick }) => {
+const SubMenu: FC<SubMenuProps> = ({ menuItem, isOpen, onSubItemClick }) => {
     const { closeHamburgerMenu } = useNavigation();
 
     const handleSubItemClick = useMemo(

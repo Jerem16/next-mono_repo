@@ -33,7 +33,7 @@ yarn dev        # lance apps/web
 
 ## Aliases TypeScript
 
-- `@packages/ui/*`
-- `@packages/domain/*`
-- `@packages/services/*`
-- `@packages/types/*`
+- `@repo/ui/*`
+- `@repo/domain/*`
+- `@repo/services/*`
+- `@repo/types/*`

@@ -1,6 +1,6 @@
 // NavLink.tsx
 "use client";
-import { useMemo, memo } from "react";
+import { useMemo, memo, type FC } from "react";
 import dynamic from "next/dynamic";
 import type { MenuItem } from "../../assets/data/menuItems";
 import { useNavigation } from "../../utils/context/NavigationContext";
@@ -20,7 +20,7 @@ interface NavLinkProps {
     handleMenuClick: (menuItemId: string) => void;
 }
 
-const NavLink: React.FC<NavLinkProps> = ({
+const NavLink: FC<NavLinkProps> = ({
     menuItem,
     onNavigationClick,
     isOpen,
@@ -59,7 +59,7 @@ const NavLink: React.FC<NavLinkProps> = ({
             <a
                 aria-label={`Page ${menuItem.title}`}
                 className={`head-link ${menuItem.class}`}
-                href={menuItem.path + menuItem.AnchorId}
+                href={`${menuItem.path}${menuItem.AnchorId ?? ""}`}
                 onClick={handleClick}
                 tabIndex={0}
                 aria-haspopup={hasSub ? "menu" : undefined}

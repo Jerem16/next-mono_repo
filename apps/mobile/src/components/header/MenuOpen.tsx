@@ -1,7 +1,7 @@
-import { useCallback, useMemo, memo } from "react";
+import { useCallback, useMemo, memo, type FC } from "react";
 import { useNavigation } from "../../utils/context/NavigationContext";
 import MenuList from "./MenuList";
-import { MenuItem } from "../../assets/data/menuItems";
+import type { MenuItem } from "../../assets/data/menuItems";
 interface NavProps {
     menuItems: {
         mainLink?: MenuItem[];
@@ -9,7 +9,7 @@ interface NavProps {
     onNavigationClick: (path: string) => void;
 }
 
-const MenuOpen: React.FC<NavProps> = ({ menuItems, onNavigationClick }) => {
+const MenuOpen: FC<NavProps> = ({ menuItems, onNavigationClick }) => {
     const { hamburgerMenuIsOpen, openSubMenu, setOpenSubMenu } = useNavigation();
 
     const handleMenuClick = useCallback(

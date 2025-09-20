@@ -1,5 +1,5 @@
 import type { MenuItem } from "../assets/data/menuItems";
-import type { SubItem } from "../assets/data/interfaces/menu";
+import type { MenuLinks, SubItem } from "../assets/data/interfaces/menu";
 
 const isMainItemActive = (itemPath: string, currentRoute: string): boolean => {
     if (itemPath === "/") {
@@ -18,10 +18,12 @@ export const updateMenuClasses = (
     mainLink: MenuItem[] = [],
     activeSection = "",
     currentRoute = ""
-) => ({
+): MenuLinks => ({
     mainLink: mainLink.map((item) => ({
         ...item,
         class: isMainItemActive(item.path, currentRoute) ? "active" : "",
-        subItems: item.subItems ? mapSubItems(item.subItems, activeSection) : undefined,
+        ...(item.subItems
+            ? { subItems: mapSubItems(item.subItems, activeSection) }
+            : {}),
     })),
 });

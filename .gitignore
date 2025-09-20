@@ -7,8 +7,9 @@ node_modules
 .next
 dist
 out
+.turbo/
 .DS_Store
 .env*
 coverage
 .playwright
-.tmp
+.tmproot

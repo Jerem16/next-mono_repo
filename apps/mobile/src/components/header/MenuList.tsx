@@ -1,5 +1,5 @@
-import { useMemo, memo } from "react";
-import { MenuItem } from "../../assets/data/menuItems";
+import { useMemo, memo, type FC } from "react";
+import type { MenuItem } from "../../assets/data/menuItems";
 import NavLink from "./NavLink";
 
 interface MenuListProps {
@@ -9,7 +9,7 @@ interface MenuListProps {
     handleMenuClick: (menuItemId: string) => void;
 }
 
-const MenuList: React.FC<MenuListProps> = ({
+const MenuList: FC<MenuListProps> = ({
     menuItems,
     openSubMenu,
     onNavigationClick,

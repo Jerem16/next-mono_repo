@@ -1,27 +1,23 @@
 {
-    "name": "@packages/types",
-    "version": "0.1.0",
-    "private": true,
+    "name": "@repo/types",
+    "version": "0.0.0",
     "type": "module",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
+    "sideEffects": false,
     "exports": {
         ".": {
-            "types": "./dist/index.d.ts",
-            "default": "./dist/index.js"
+            "types": "./dist/types/index.d.ts",
+            "import": "./src/index.ts"
         }
     },
-    "typesVersions": {
-        "*": {
-            "*": [
-                "src/*"
-            ]
-        }
-    },
+    "types": "./dist/types/index.d.ts",
+    "files": [
+        "dist",
+        "src"
+    ],
     "scripts": {
-        "build": "tsc --build",
-        "tsc": "tsc --noEmit",
-        "lint": "eslint -c eslint.config.js .",
-        "test": "echo \"(placeholder)\""
+        "build": "tsc -b",
+        "typecheck": "tsc -p tsconfig.json --noEmit",
+        "lint": "eslint .",
+        "test": "echo \"No tests configured\""
     }
 }

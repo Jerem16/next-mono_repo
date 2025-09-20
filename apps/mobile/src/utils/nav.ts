@@ -16,8 +16,8 @@ export const handleNavClick = (
     if (!currentRoute) {
         return;
     }
-    const [currentPath, currentHash] = currentRoute.split("#");
-    const [targetPath, targetHash] = path.split("#");
+    const [currentPath = "", currentHash] = currentRoute.split("#");
+    const [targetPath = "", targetHash] = path.split("#");
     ifNav({ currentPath, targetPath, targetHash, currentHash, updateRoute });
     elseNav({
         currentPath,
@@ -25,7 +25,7 @@ export const handleNavClick = (
         targetHash,
         currentHash,
         updateRoute,
-        handleScrollClick,
+        ...(handleScrollClick ? { handleScrollClick } : {}),
     });
 };
 

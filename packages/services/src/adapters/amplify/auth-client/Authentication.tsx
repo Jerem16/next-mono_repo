@@ -7,7 +7,7 @@ import { configureI18n, formFields } from "./index";
 
 // import "@assets/styles/amplify/authenticator.scss";
 import { signUp } from "aws-amplify/auth";
-import { userNameService } from "@packages/services";
+import { userNameService } from "../../../userName";
 
 configureI18n();
 

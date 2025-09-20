@@ -1,37 +1,29 @@
-# .github/workflows/ci.yml
 name: CI
 on:
-    push:
-    pull_request:
-
+  push:
+    branches: [main]
+  pull_request:
 jobs:
-  build-test:
+  ci:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Bootstrap Corepack
-        run: |
-          corepack enable
-          corepack prepare yarn@4.9.4 --activate
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: '22.19.0'
-          cache: 'yarn'
-      - name: Enable Corepack (Yarn 4)
-        run: |
-          corepack enable
-          corepack prepare yarn@4.9.4 --activate
-          yarn -v
-      - name: Yarn version
-        run: yarn -v
+          node-version: 20
+      - name: Enable Corepack
+        run: corepack enable
       - name: Install
         run: yarn install --immutable
-      - name: Typecheck
-        run: yarn tsc --noEmit
+      - name: Constraints & Dedupe
+        run: |
+          yarn constraints
+          yarn dedupe --check
       - name: Lint
         run: yarn lint
-      - name: Build
-        run: yarn build
+      - name: Typecheck
+        run: yarn typecheck
       - name: Test
         run: yarn test
+      - name: Build (affected only)
+        run: npx turbo run build --filter=...[origin/main]

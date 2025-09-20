@@ -1,7 +1,7 @@
 "use client";
 
 import { NavigationProvider } from "@utils/context/NavigationContext";
-import { Header } from "@nav/index";
+import { Header } from "@src/features/navigation";
 import { menuItems } from "@src/features/navigation/data/menuItems";
 import { handleNavClick } from "@src/features/navigation/utils/fnScrollUtils";
 

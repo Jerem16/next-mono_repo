@@ -6,10 +6,11 @@
         "dev": "next dev",
         "build": "next build",
         "start": "next start",
-        "lint": "next lint",
+        "lint": "NEXT_DISABLE_ESLINT_TSC_REWRITE=1 next lint",
         "tsc": "tsc --noEmit",
         "format": "prettier --write .",
-        "test": "echo \"(placeholder)\""
+        "test": "echo \"(placeholder)\"",
+        "typecheck": "tsc -p tsconfig.json --noEmit"
     },
     "dependencies": {
         "@aws-amplify/auth": "^6.14.4",
@@ -22,10 +23,10 @@
         "@formspree/react": "^2.5.1",
         "@mui/icons-material": "^7.1.0",
         "@mui/material": "^7.1.0",
-        "@packages/domain": "workspace:*",
-        "@packages/services": "workspace:*",
-        "@packages/types": "workspace:*",
-        "@packages/ui": "workspace:*",
+        "@repo/domain": "workspace:*",
+        "@repo/services": "workspace:*",
+        "@repo/types": "workspace:*",
+        "@repo/ui": "workspace:*",
         "aws-amplify": "^6.14.4",
         "clsx": "^2.1.1",
         "file-saver": "^2.0.5",
@@ -89,9 +90,9 @@
         "edge >= 115",
         "safari >= 16"
     ],
-    "packageManager": "yarn@4.9.4",
+    "packageManager": "yarn@4.0.0",
     "engines": {
-        "node": "22.19.x"
+        "node": ">=20.17.0 <21"
     },
     "packageExtensions": {
         "@aws-amplify/plugin-types@*": {
