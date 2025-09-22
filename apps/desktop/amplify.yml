@@ -12,6 +12,7 @@ frontend:
         build:
             commands:
                 - export NEXT_TELEMETRY_DISABLED=1
+                - yarn run prepare:public
                 - yarn build
     artifacts:
         baseDirectory: .next
