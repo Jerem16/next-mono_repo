@@ -1,16 +1,17 @@
 {
     "extends": "../../tsconfig.base.json",
     "compilerOptions": {
-        "target": "es2022",
-        "lib": ["es2022", "dom", "dom.iterable", "esnext"],
+        "target": "ES2022",
+        "lib": ["ES2022", "DOM", "DOM.Iterable"],
+        "module": "ESNext",
+        "moduleResolution": "bundler",
+        "jsx": "preserve",
         "strict": true,
         "noEmit": true,
-        "jsx": "preserve",
         "incremental": true,
         "allowJs": true,
         "skipLibCheck": true,
         "esModuleInterop": true,
-        "moduleResolution": "Bundler",
         "resolveJsonModule": true,
         "isolatedModules": true,
         "baseUrl": ".",
@@ -29,12 +30,12 @@
             "@packages/types": ["../../packages/types/src"],
             "@packages/types/*": ["../../packages/types/src/*"],
             "@apps/*": ["../../apps/*"],
-            "@src/*": ["src/*"], // ⬅️ local
-            "@app/*": ["app/*"], // ⬅️ local
+            "@src/*": ["src/*"],
+            "@app/*": ["app/*"],
             "@assets/*": ["src/assets/*"],
             "@components/*": ["src/components/*"],
             "@hooks/*": ["src/hooks/*"],
-            "@context/*": ["src/utils/context/*"], // si tu veux
+            "@context/*": ["src/utils/context/*"],
             "@utils/*": ["src/utils/*"],
             "@public/*": ["public/*"]
         },
@@ -42,14 +43,9 @@
     },
     "include": [
         "next-env.d.ts",
-        "app/**/*.ts",
-        "app/**/*.tsx",
-        "app/**/*.js",
-        "app/**/*.jsx",
-        "src/**/*.ts",
-        "src/**/*.tsx",
-        "src/**/*.js",
-        "src/**/*.jsx",
+        "global.d.ts",
+        "app/**/*",
+        "src/**/*",
         "public/**/*.json",
         ".next/types/**/*.ts"
     ],
