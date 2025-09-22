@@ -8202,6 +8202,12 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@packages/assets@workspace:packages/assets":
+  version: 0.0.0-use.local
+  resolution: "@packages/assets@workspace:packages/assets"
+  languageName: unknown
+  linkType: soft
+
 "@packages/domain@workspace:*, @packages/domain@workspace:packages/domain":
   version: 0.0.0-use.local
   resolution: "@packages/domain@workspace:packages/domain"
