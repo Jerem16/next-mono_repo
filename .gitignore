@@ -1,0 +1,59 @@
+# === Dependencies / Yarn 4 (PnP) ===
+/node_modules
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+!.yarn/sdks
+apps/*/node_modules
+# === Turbo cache & logs ===
+.turbo/
+apps/*/.turbo/
+packages/*/.turbo/
+
+# === Next.js build & cache ===
+/.next/
+apps/*/.next/
+apps/*/.next/cache/
+/out/
+apps/*/out/
+
+# === TypeScript artefacts ===
+*.tsbuildinfo
+apps/*/tsconfig.tsbuildinfo
+packages/*/dist/
+packages/*/dist/.tsbuildinfo
+
+# === Coverage & test reports ===
+/coverage
+apps/*/coverage/
+packages/*/coverage/
+**/junit.xml
+
+# === Production builds (si certains packages génèrent build/) ===
+/build
+packages/*/build/
+
+# === Local backup ===
+/save
+.tmp
+
+# === Logs ===
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+**/*.log
+
+# === Env files (option: commit si nécessaire) ===
+.env*
+next-env.d.ts
+
+# === Hosting / Platforms ===
+.vercel
+
+# === OS cruft ===
+.DS_Store
+Thumbs.db

@@ -1,0 +1,13 @@
+{
+    "files": [],
+    "references": [
+        { "path": "./admin" },
+        { "path": "./desktop" },
+        { "path": "./mobile" },
+        { "path": "./main" }
+    ],
+    "compilerOptions": {
+        "skipLibCheck": true,
+        "incremental": true
+    }
+}

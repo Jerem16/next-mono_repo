@@ -1,0 +1,58 @@
+{
+    "name": "root",
+    "private": true,
+    "workspaces": [
+        "apps/*",
+        "packages/*",
+        "tools/*"
+    ],
+    "packageManager": "yarn@4.9.4",
+    "engines": {
+        "node": "22.19.x"
+    },
+    "scripts": {
+        "dev": "turbo run dev --parallel --filter='./apps/*'",
+        "build": "turbo run build --filter='./apps/*'",
+        "build:affected": "turbo run build --filter=\"...[HEAD^..HEAD]\"",
+        "start": "turbo run start --parallel --filter='./apps/*'",
+        "prod": "yarn clean && yarn build && yarn start",
+        "tsc": "yarn tsc:packages && yarn tsc:apps",
+        "tsc:packages": "tsc -b packages/tsconfig.json",
+        "tsc:apps": "tsc -b apps/tsconfig.json",
+        "lint": "eslint -f codeframe --max-warnings=0 --no-error-on-unmatched-pattern packages/domain packages/services packages/types packages/ui apps/admin apps/desktop apps/mobile",
+        "test": "yarn workspaces foreach -Rvt run test",
+        "test:admin": "yarn workspace admin run test",
+        "check": "yarn tsc && yarn lint && yarn test",
+        "clean": "yarn workspaces foreach -Rvt run clean || echo \"no clean script\" && rimraf --glob \"packages/*/dist\" \"apps/*/tsconfig.tsbuildinfo\"  \"apps/*/.next\" \"packages/*/build\" \"packages/*/coverage\"",
+        "keep:list": "node /tools/scripts/keep-list.cjs",
+        "keep": "yarn lint && node ./tools/scripts/keep-list.cjs && node ./tools/scripts/keep-functions.cjs",
+        "keep:fn": "node /tools/scripts/keep-functions.cjs",
+        "css:prune": "tsx tools/scripts/css-prune.ts",
+        "css:prune:apply": "tsx tools/scripts/css-prune.ts --apply"
+    },
+    "devDependencies": {
+        "@eslint/js": "9.35.0",
+        "@next/eslint-plugin-next": "^15.5.3",
+        "@typescript-eslint/eslint-plugin": "^8.42.0",
+        "@typescript-eslint/parser": "^8.42.0",
+        "eslint": "^9.35.0",
+        "eslint-config-prettier": "10.1.1",
+        "eslint-formatter-codeframe": "^7.32.1",
+        "eslint-formatter-compact": "^8.40.0",
+        "eslint-formatter-unix": "^8.40.0",
+        "eslint-import-resolver-typescript": "^4.4.4",
+        "eslint-plugin-import": "^2.32.0",
+        "eslint-plugin-only-warn": "^1.1.0",
+        "eslint-plugin-react": "^7.37.5",
+        "eslint-plugin-react-hooks": "^5.2.0",
+        "eslint-plugin-unused-imports": "^4.2.0",
+        "globals": "16.3.0",
+        "rimraf": "^6.0.1",
+        "turbo": "^2.5.6",
+        "typescript": "^5.9.2",
+        "typescript-eslint": "^8.44.0"
+    },
+    "resolutions": {
+        "react-hook-form": "7.51.5"
+    }
+}

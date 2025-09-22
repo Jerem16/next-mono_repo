@@ -1,0 +1,19 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "composite": true,
+        "declaration": true,
+        "declarationMap": true,
+        "emitDeclarationOnly": true,
+        "outDir": "dist",
+        "rootDir": "src",
+        "incremental": true,
+        "tsBuildInfoFile": "dist/.tsbuildinfo",
+        "skipLibCheck": true
+    },
+    "include": ["src"],
+    "references": [
+        { "path": "../services/tsconfig.build.json" },
+        { "path": "../types/tsconfig.build.json" }
+    ]
+}

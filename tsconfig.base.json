@@ -1,0 +1,40 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "ESNext",
+        "moduleResolution": "Bundler", // ⬅️ clé !
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "strict": true,
+        "baseUrl": ".",
+        "lib": ["ES2022", "DOM", "DOM.Iterable", "ESNext"],
+        "paths": {
+            "@packages/ui": ["packages/ui/src"],
+            "@packages/ui/*": ["packages/ui/src/*"],
+            "@packages/services": ["packages/services/src"],
+            "@packages/services/*": ["packages/services/src/*"],
+            "@packages/types": ["packages/types/src"],
+            "@packages/types/*": ["packages/types/src/*"],
+            "@packages/domain": ["packages/domain/src"],
+            "@packages/domain/*": ["packages/domain/src/*"],
+            "@admin": ["apps/admin"],
+            "@admin/*": ["apps/admin/*"],
+            "@desktop": ["apps/desktop"],
+            "@desktop/*": ["apps/desktop/*"],
+            "@mobile": ["apps/mobile"],
+            "@mobile/*": ["apps/mobile/*"],
+            "@main": ["apps/main"],
+            "@main/*": ["apps/main/*"]
+        }
+    },
+    "references": [
+        { "path": "packages/types" },
+        { "path": "packages/domain" },
+        { "path": "packages/services" },
+        { "path": "packages/ui" },
+        { "path": "apps/admin" },
+        { "path": "apps/desktop" },
+        { "path": "apps/mobile" },
+        { "path": "apps/main" }
+    ]
+}

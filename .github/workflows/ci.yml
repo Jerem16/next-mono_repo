@@ -1,0 +1,39 @@
+# .github/workflows/ci.yml
+name: CI
+on:
+    push:
+    pull_request:
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bootstrap Corepack
+        run: |
+          corepack enable
+          corepack prepare yarn@4.9.4 --activate
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22.19.0'
+          cache: 'yarn'
+      - name: Enable Corepack (Yarn 4)
+        run: |
+          corepack enable
+          corepack prepare yarn@4.9.4 --activate
+          yarn -v
+      - name: Yarn version
+        run: yarn -v
+      - name: Install
+        run: yarn install --immutable
+      - name: Clean
+        run: yarn clean
+      - name: Typecheck
+        run: yarn tsc
+      - name: Lint
+        run: yarn lint
+      - name: Build
+        run: yarn build
+      - name: Test
+        run: yarn test

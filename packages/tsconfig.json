@@ -1,0 +1,29 @@
+{
+    "files": [],
+    "references": [
+        { "path": "./types" },
+        { "path": "./domain" },
+        { "path": "./services" },
+        { "path": "./ui" }
+    ],
+    "compilerOptions": {
+        "baseUrl": "../..",
+        "paths": {
+            "@apps/*": ["apps/admin/*"],
+            "@app/*": ["apps/admin/app/*"],
+            "@src/*": ["apps/admin/src/*"],
+            "@admin": ["apps/admin"],
+            "@admin/*": ["apps/admin/*"],
+            "@packages/ui/*": ["packages/ui/src/*"],
+            "@packages/domain/*": ["packages/domain/src/*"],
+            "@packages/services/*": ["packages/services/src/*"],
+            "@packages/types/*": ["packages/types/src/*"],
+            "@assets/*": ["apps/admin/src/assets/*"],
+            "@components/*": ["apps/admin/src/components/*"],
+            "@hooks/*": ["apps/admin/src/hooks/*"],
+            "@context/*": ["apps/admin/src/context/*"],
+            "@utils/*": ["apps/admin/src/utils/*"],
+            "@public/*": ["apps/admin/public/*"]
+        }
+    }
+}

@@ -1,0 +1,63 @@
+{
+    "extends": "../../tsconfig.base.json",
+    "compilerOptions": {
+        "target": "es2022",
+        "lib": ["es2022", "dom", "dom.iterable", "esnext"],
+        "strict": true,
+        "noEmit": true,
+        "jsx": "preserve",
+        "incremental": true,
+        "allowJs": true,
+        "skipLibCheck": true,
+        "esModuleInterop": true,
+        "moduleResolution": "Bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["./*"],
+            "@admin": ["./"],
+            "@admin/*": ["./*"],
+            "@amplify": ["../../amplify"],
+            "@amplify/*": ["../../amplify/*"],
+            "@packages/ui": ["../../packages/ui/src"],
+            "@packages/ui/*": ["../../packages/ui/src/*"],
+            "@packages/domain": ["../../packages/domain/src"],
+            "@packages/domain/*": ["../../packages/domain/src/*"],
+            "@packages/services": ["../../packages/services/src"],
+            "@packages/services/*": ["../../packages/services/src/*"],
+            "@packages/types": ["../../packages/types/src"],
+            "@packages/types/*": ["../../packages/types/src/*"],
+            "@apps/*": ["../../apps/*"],
+            "@src/*": ["src/*"], // ⬅️ local
+            "@app/*": ["app/*"], // ⬅️ local
+            "@assets/*": ["src/assets/*"],
+            "@components/*": ["src/components/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@context/*": ["src/utils/context/*"], // si tu veux
+            "@utils/*": ["src/utils/*"],
+            "@public/*": ["public/*"]
+        },
+        "plugins": [{ "name": "next" }]
+    },
+    "include": [
+        "next-env.d.ts",
+        "app/**/*.ts",
+        "app/**/*.tsx",
+        "app/**/*.js",
+        "app/**/*.jsx",
+        "src/**/*.ts",
+        "src/**/*.tsx",
+        "src/**/*.js",
+        "src/**/*.jsx",
+        "public/**/*.json",
+        ".next/types/**/*.ts"
+    ],
+    "exclude": ["node_modules"],
+    "references": [
+        { "path": "../../packages/types" },
+        { "path": "../../packages/domain" },
+        { "path": "../../packages/services" },
+        { "path": "../../packages/ui" }
+    ]
+}

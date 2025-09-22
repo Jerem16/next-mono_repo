@@ -1,0 +1,42 @@
+{
+    "$schema": "https://turbo.build/schema.json",
+    "globalDependencies": [
+        "package.json",
+        "yarn.lock",
+        "tsconfig.base.json",
+        "apps/tsconfig.json",
+        "packages/tsconfig.json"
+    ],
+    "globalEnv": ["AMPLIFY_BRANCH", "AMPLIFY_JOB_ID", "CI", "NODE_ENV", "VERCEL", "VERCEL_ENV"],
+    "tasks": {
+        "dev": {
+            "cache": false,
+            "persistent": true
+        },
+        "start": {
+            "cache": false,
+            "persistent": true
+        },
+        "build": {
+            "dependsOn": ["^build"],
+            "outputs": [
+                ".next/**",
+                "dist/**",
+                "build/**",
+                "dist/.tsbuildinfo",
+                "tsconfig.tsbuildinfo"
+            ]
+        },
+        "typecheck": {
+            "outputs": []
+        },
+        "lint": {
+            "cache": false,
+            "outputs": []
+        },
+        "test": {
+            "dependsOn": ["^build"],
+            "outputs": ["coverage/**", "junit.xml"]
+        }
+    }
+}

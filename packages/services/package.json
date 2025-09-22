@@ -1,0 +1,50 @@
+{
+    "name": "@packages/services",
+    "version": "0.1.0",
+    "private": true,
+    "type": "module",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./amplify": {
+            "types": "./dist/amplify/index.d.ts",
+            "default": "./dist/amplify/index.js"
+        }
+    },
+    "typesVersions": {
+        "*": {
+            "amplify": [
+                "src/amplify/index.ts"
+            ],
+            "*": [
+                "src/*"
+            ]
+        }
+    },
+    "scripts": {
+        "build": "tsc --build",
+        "tsc": "tsc --noEmit",
+        "lint": "eslint --config ../../eslint.config.mjs .",
+        "test": "echo \"(placeholder)\""
+    },
+    "dependencies": {
+        "@packages/domain": "workspace:*",
+        "@packages/types": "workspace:*"
+    },
+    "peerDependencies": {
+        "@aws-amplify/ui-react": ">=6",
+        "aws-amplify": ">=6",
+        "next": ">=15",
+        "react": ">=18",
+        "react-dom": ">=18"
+    },
+    "peerDependenciesMeta": {
+        "@types/react": {
+            "optional": true
+        }
+    }
+}

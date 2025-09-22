@@ -1,0 +1,299 @@
+{
+  "workspaces": [
+    {
+      "name": "admin",
+      "cwd": "apps/admin",
+      "kind": "app",
+      "framework": "next",
+      "scripts": {
+        "dev": "next dev -p 3003",
+        "start": "next start -p 3003",
+        "build": "next build",
+        "typecheck": "tsc --noEmit --pretty false --skipLibCheck -p tsconfig.json",
+        "lint": "next lint",
+        "test": "echo \"(placeholder)\""
+      },
+      "port": { "detected": 3003, "proposed": null, "source": "script:dev" },
+      "typescript": {
+        "tsconfig": "apps/admin/tsconfig.json",
+        "noEmit": true,
+        "references": [
+          "../../packages/types",
+          "../../packages/domain",
+          "../../packages/services",
+          "../../packages/ui"
+        ],
+        "paths": true,
+        "skipLibCheck": true,
+        "incremental": true
+      },
+      "eslint": { "config": "eslint.config.mjs", "isFlat": true, "hasNextPlugin": true }
+    },
+    {
+      "name": "desktop",
+      "cwd": "apps/desktop",
+      "kind": "app",
+      "framework": "next",
+      "scripts": {
+        "dev": "next dev -p 3001",
+        "start": "next start -p 3001",
+        "build": "next build",
+        "typecheck": "tsc --noEmit --pretty false --skipLibCheck -p tsconfig.json",
+        "lint": "next lint",
+        "test": "echo \"(placeholder)\""
+      },
+      "port": { "detected": 3001, "proposed": null, "source": "script:dev" },
+      "typescript": {
+        "tsconfig": "apps/desktop/tsconfig.json",
+        "noEmit": true,
+        "references": [
+          "../../packages/types",
+          "../../packages/domain",
+          "../../packages/services",
+          "../../packages/ui"
+        ],
+        "paths": true,
+        "skipLibCheck": true,
+        "incremental": true
+      },
+      "eslint": { "config": "eslint.config.mjs", "isFlat": true, "hasNextPlugin": true }
+    },
+    {
+      "name": "main",
+      "cwd": "apps/main",
+      "kind": "app",
+      "framework": "next",
+      "scripts": {
+        "dev": "next dev -p 3000",
+        "start": "next start -p 3000",
+        "build": "next build",
+        "typecheck": "tsc --noEmit --pretty false --skipLibCheck -p tsconfig.json",
+        "lint": "next lint",
+        "test": "echo \"(placeholder)\""
+      },
+      "port": { "detected": 3000, "proposed": null, "source": "script:dev" },
+      "typescript": {
+        "tsconfig": "apps/main/tsconfig.json",
+        "noEmit": true,
+        "references": null,
+        "paths": false,
+        "skipLibCheck": true,
+        "incremental": true
+      },
+      "eslint": { "config": "eslint.config.mjs", "isFlat": true, "hasNextPlugin": true }
+    },
+    {
+      "name": "mobile",
+      "cwd": "apps/mobile",
+      "kind": "app",
+      "framework": "next",
+      "scripts": {
+        "dev": "next dev -p 3002",
+        "start": "next start -p 3002",
+        "build": "next build",
+        "typecheck": "tsc --noEmit --pretty false --skipLibCheck -p tsconfig.json",
+        "lint": "next lint",
+        "test": "echo \"(placeholder)\""
+      },
+      "port": { "detected": 3002, "proposed": null, "source": "script:dev" },
+      "typescript": {
+        "tsconfig": "apps/mobile/tsconfig.json",
+        "noEmit": true,
+        "references": [
+          "../../packages/types",
+          "../../packages/domain",
+          "../../packages/services",
+          "../../packages/ui"
+        ],
+        "paths": true,
+        "skipLibCheck": true,
+        "incremental": true
+      },
+      "eslint": { "config": "eslint.config.mjs", "isFlat": true, "hasNextPlugin": true }
+    },
+    {
+      "name": "@packages/domain",
+      "cwd": "packages/domain",
+      "kind": "package",
+      "framework": "library",
+      "scripts": {
+        "dev": null,
+        "start": null,
+        "build": "tsc --build",
+        "typecheck": null,
+        "lint": "eslint -c eslint.config.js .",
+        "test": "echo \"(placeholder)\""
+      },
+      "port": { "detected": null, "proposed": null, "source": null },
+      "typescript": {
+        "tsconfig": "packages/domain/tsconfig.json",
+        "noEmit": false,
+        "references": ["../types"],
+        "paths": false,
+        "skipLibCheck": true,
+        "incremental": null
+      },
+      "eslint": { "config": null, "isFlat": null, "hasNextPlugin": false }
+    },
+    {
+      "name": "@packages/eslint-config",
+      "cwd": "packages/eslint-config",
+      "kind": "package",
+      "framework": "eslint-config",
+      "scripts": {
+        "dev": null,
+        "start": null,
+        "build": null,
+        "typecheck": null,
+        "lint": null,
+        "test": null
+      },
+      "port": { "detected": null, "proposed": null, "source": null },
+      "typescript": {
+        "tsconfig": null,
+        "noEmit": null,
+        "references": null,
+        "paths": false,
+        "skipLibCheck": null,
+        "incremental": null
+      },
+      "eslint": { "config": null, "isFlat": null, "hasNextPlugin": null }
+    },
+    {
+      "name": "@packages/services",
+      "cwd": "packages/services",
+      "kind": "package",
+      "framework": "library",
+      "scripts": {
+        "dev": null,
+        "start": null,
+        "build": "tsc --build",
+        "typecheck": null,
+        "lint": "eslint -c eslint.config.js .",
+        "test": "echo \"(placeholder)\""
+      },
+      "port": { "detected": null, "proposed": null, "source": null },
+      "typescript": {
+        "tsconfig": "packages/services/tsconfig.json",
+        "noEmit": false,
+        "references": null,
+        "paths": false,
+        "skipLibCheck": true,
+        "incremental": null
+      },
+      "eslint": { "config": null, "isFlat": null, "hasNextPlugin": false }
+    },
+    {
+      "name": "@packages/types",
+      "cwd": "packages/types",
+      "kind": "package",
+      "framework": "library",
+      "scripts": {
+        "dev": null,
+        "start": null,
+        "build": "tsc --build",
+        "typecheck": null,
+        "lint": "eslint -c eslint.config.js .",
+        "test": "echo \"(placeholder)\""
+      },
+      "port": { "detected": null, "proposed": null, "source": null },
+      "typescript": {
+        "tsconfig": "packages/types/tsconfig.json",
+        "noEmit": false,
+        "references": null,
+        "paths": false,
+        "skipLibCheck": true,
+        "incremental": null
+      },
+      "eslint": { "config": null, "isFlat": null, "hasNextPlugin": false }
+    },
+    {
+      "name": "@packages/ui",
+      "cwd": "packages/ui",
+      "kind": "package",
+      "framework": "library",
+      "scripts": {
+        "dev": null,
+        "start": null,
+        "build": "tsc --build",
+        "typecheck": null,
+        "lint": "eslint -c eslint.config.js .",
+        "test": "echo \"(placeholder)\""
+      },
+      "port": { "detected": null, "proposed": null, "source": null },
+      "typescript": {
+        "tsconfig": "packages/ui/tsconfig.json",
+        "noEmit": false,
+        "references": ["../types", "../services"],
+        "paths": true,
+        "skipLibCheck": true,
+        "incremental": null
+      },
+      "eslint": { "config": null, "isFlat": null, "hasNextPlugin": false }
+    }
+  ],
+  "turbo": {
+    "exists": true,
+    "file": "turbo.json",
+    "pipeline": {
+      "dev": { "cache": false, "persistent": true },
+      "start": { "cache": false, "persistent": true },
+      "build": { "dependsOn": ["^build"], "outputs": [".next/**", "dist/**", "build/**"] },
+      "typecheck": { "outputs": [] },
+      "lint": { "cache": false, "outputs": [] },
+      "test": { "dependsOn": ["^build"], "outputs": ["coverage/**", "junit.xml"] }
+    },
+    "issues": [
+      "Les workspaces de packages n'exposent aucun script typecheck: turbo run typecheck n'exécutera que les apps.",
+      "Les scripts lint des packages pointent vers eslint.config.js inexistant: turbo run lint échouera ou sera ignoré dans ces workspaces.",
+      "Aucun filtrage fin des outputs par workspace: .next/** et dist/** globaux peuvent capturer des artefacts inattendus (ex: dist/ hors packages)."
+    ],
+    "outputsMissing": [
+      "Spécifier explicitement apps/*/.next/cache/** pour le cache Next partagé",
+      "Ajouter packages/*/dist/.tsbuildinfo pour suivre les fichiers d'état TypeScript",
+      "Déclarer coverage/** par workspace (ex: apps/*/coverage/**, packages/*/coverage/**) pour éviter les collisions"
+    ]
+  },
+  "packages": [
+    {
+      "name": "@packages/domain",
+      "cwd": "packages/domain",
+      "hasTsconfigBuild": false,
+      "tsOutDir": "dist",
+      "composite": true,
+      "emitDeclarationOnly": false,
+      "exports": { "main": "dist/index.js", "types": "dist/index.d.ts" },
+      "typesVersionsToSrc": true
+    },
+    {
+      "name": "@packages/services",
+      "cwd": "packages/services",
+      "hasTsconfigBuild": false,
+      "tsOutDir": "dist",
+      "composite": true,
+      "emitDeclarationOnly": true,
+      "exports": { "main": "dist/index.js", "types": "dist/index.d.ts" },
+      "typesVersionsToSrc": true
+    },
+    {
+      "name": "@packages/types",
+      "cwd": "packages/types",
+      "hasTsconfigBuild": false,
+      "tsOutDir": "dist",
+      "composite": true,
+      "emitDeclarationOnly": false,
+      "exports": { "main": "dist/index.js", "types": "dist/index.d.ts" },
+      "typesVersionsToSrc": true
+    },
+    {
+      "name": "@packages/ui",
+      "cwd": "packages/ui",
+      "hasTsconfigBuild": false,
+      "tsOutDir": "dist",
+      "composite": true,
+      "emitDeclarationOnly": true,
+      "exports": { "main": "dist/index.js", "types": "dist/index.d.ts" },
+      "typesVersionsToSrc": true
+    }
+  ]
+}

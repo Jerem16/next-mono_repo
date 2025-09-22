@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://mobile.peur-de-la-conduite.fr/sitemap.xml</loc>
+    <!-- facultatif : 
+    <lastmod>2025-06-07T00:00:00+00:00</lastmod>
+    -->
+  </sitemap>
+  <sitemap>
+    <loc>https://desktop.peur-de-la-conduite.fr/sitemap.xml</loc>
+    <!-- facultatif :
+    <lastmod>2025-06-07T00:00:00+00:00</lastmod>
+    -->
+  </sitemap>
+</sitemapindex>
