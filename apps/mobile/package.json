@@ -3,8 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev -p 3002",
-        "build": "next build",
+        "prepare:public": "tsx ../../tooling/sync-public.ts --app=mobile",
+        "dev": "yarn run prepare:public && next dev -p 3002",
+        "build": "yarn run prepare:public && next build",
         "start": "next start -p 3002",
         "lint": "next lint",
         "typecheck": "tsc --noEmit --pretty false --skipLibCheck -p tsconfig.json",
