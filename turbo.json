@@ -11,14 +11,18 @@
     "tasks": {
         "dev": {
             "cache": false,
-            "persistent": true
+            "persistent": true,
+            "dependsOn": ["^prepare:public"]
         },
         "start": {
             "cache": false,
             "persistent": true
         },
+        "prepare:public": {
+            "cache": false
+        },
         "build": {
-            "dependsOn": ["^build"],
+            "dependsOn": ["^prepare:public", "^build"],
             "outputs": [
                 ".next/**",
                 "dist/**",
