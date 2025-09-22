@@ -1,5 +1,41 @@
 import type { NextConfig } from "next";
 
+type Redirect = {
+    source: `/${string}`;
+    destination: `/${string}`;
+    permanent?: boolean;
+    basePath?: boolean;
+    locale?: boolean;
+};
+
+type Rewrite = {
+    source: `/${string}`;
+    destination: `/${string}`;
+    basePath?: boolean;
+    locale?: boolean;
+};
+
+const notSelf = <T extends { source: string; destination: string }>(rule: T): boolean => {
+    const normalize = (value: string): string => value.replace(/\/+$/, "") || "/";
+    return normalize(rule.source) !== normalize(rule.destination);
+};
+
+const withSafeRedirects = async (): Promise<Redirect[]> => {
+    const redirects: Redirect[] = [
+        // Ajoutez vos redirections ici.
+    ];
+
+    return redirects.filter(notSelf);
+};
+
+const withSafeRewrites = async (): Promise<Rewrite[]> => {
+    const rewrites: Rewrite[] = [
+        // Ajoutez vos réécritures ici.
+    ];
+
+    return rewrites.filter(notSelf);
+};
+
 const nextConfig: NextConfig = {
     experimental: {},
 
@@ -45,6 +81,14 @@ const nextConfig: NextConfig = {
                 ],
             },
         ];
+    },
+
+    async redirects() {
+        return withSafeRedirects();
+    },
+
+    async rewrites() {
+        return withSafeRewrites();
     },
 };
 

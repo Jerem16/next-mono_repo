@@ -1,153 +1,89 @@
-#!/usr/bin/env -S node --import tsx
+#!/usr/bin/env -S node --enable-source-maps
+import fs from "node:fs/promises";
+import path from "node:path";
+import process from "node:process";
+import { fileURLToPath } from "node:url";
 
-import { existsSync } from 'node:fs';
-import { cp, mkdir, readdir, stat, writeFile } from 'node:fs/promises';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+type AppName = "admin" | "desktop" | "mobile" | "main";
+interface CliArgs {
+    app: AppName;
+    from: string;
+    to: string;
+}
 
-const SOURCE_APP = 'main';
-const MARKER_FILENAME = '.synced-from-main';
+const APPS: ReadonlyArray<AppName> = ["admin", "desktop", "mobile", "main"] as const;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const repoRoot = path.resolve(__dirname, '..');
-const appsRoot = path.join(repoRoot, 'apps');
+// Racine repo = parent de /tooling
+const repoRoot = path.resolve(__dirname, "..");
 
-interface CliOptions {
-  readonly app: string;
-}
+const parseArgs = (): CliArgs => {
+    const raw = process.argv.slice(2);
+    const get = (key: string): string | undefined =>
+        raw.find((entry) => entry.startsWith(`--${key}=`))?.split("=", 2)[1];
 
-const usage = `Synchronise le dossier public de l'app "${SOURCE_APP}" vers une autre app.
+    const appRaw = get("app");
+    if (!appRaw) throw new Error("Missing --app=<admin|desktop|mobile|main>");
+    if (!APPS.includes(appRaw as AppName)) throw new Error(`Invalid app: ${appRaw}`);
 
-Usage: sync-public --app <nom>
+    const from = get("from") ?? path.join(repoRoot, "packages", "assets", "public");
+    const to = get("to") ?? path.join(repoRoot, "apps", appRaw, "public", "_shared");
 
-Options :
-  --app <nom>    Nom de l'app cible (ex: admin)
-  --help         Affiche cette aide
-`;
-
-const isErrnoException = (value: unknown): value is NodeJS.ErrnoException => {
-  return typeof value === 'object' && value !== null && 'code' in value;
+    return { app: appRaw as AppName, from, to };
 };
 
-const ensureDirectory = async (directory: string): Promise<void> => {
-  if (!existsSync(directory)) {
-    await mkdir(directory, { recursive: true });
-  }
+const exists = async (targetPath: string): Promise<boolean> => {
+    try {
+        await fs.access(targetPath);
+        return true;
+    } catch {
+        return false;
+    }
 };
 
-const assertDirectory = async (directory: string, label: string): Promise<void> => {
-  try {
-    const stats = await stat(directory);
-    if (!stats.isDirectory()) {
-      throw new Error(`Le chemin pour ${label} n'est pas un dossier : ${directory}`);
-    }
-  } catch (error: unknown) {
-    if (isErrnoException(error) && error.code === 'ENOENT') {
-      throw new Error(`Le dossier ${label} est introuvable : ${directory}`);
-    }
-    throw error;
-  }
+const ensureDir = async (targetPath: string): Promise<void> => {
+    await fs.mkdir(targetPath, { recursive: true });
 };
 
-const parseArgs = (args: readonly string[]): CliOptions => {
-  if (args.length === 0) {
-    throw new Error('L\'option --app est requise. Utilisez --help pour l\'aide.');
-  }
-
-  let app: string | undefined;
-
-  for (let index = 0; index < args.length; index += 1) {
-    const arg = args[index];
-
-    if (arg === '--help' || arg === '-h') {
-      console.log(usage);
-      process.exit(0);
-    }
-
-    if (arg === '--app') {
-      const next = args[index + 1];
-      if (next === undefined || next.startsWith('--')) {
-        throw new Error('La valeur suivant --app est invalide.');
-      }
-      app = next;
-      index += 1;
-      continue;
-    }
-
-    if (arg.startsWith('--app=')) {
-      const value = arg.slice('--app='.length);
-      if (value.length === 0) {
-        throw new Error('La valeur pour --app ne peut pas être vide.');
-      }
-      app = value;
-      continue;
-    }
-
-    throw new Error(`Argument non reconnu : ${arg}`);
-  }
-
-  if (app === undefined) {
-    throw new Error('L\'option --app est requise. Utilisez --help pour l\'aide.');
-  }
-
-  return { app };
+const samePath = async (a: string, b: string): Promise<boolean> => {
+    const [aResolved, bResolved] = await Promise.all([
+        fs.realpath(a).catch(() => a),
+        fs.realpath(b).catch(() => b),
+    ]);
+    return path.resolve(aResolved) === path.resolve(bResolved);
 };
 
-const resolveAppNames = async (): Promise<readonly string[]> => {
-  const entries = await readdir(appsRoot, { withFileTypes: true });
-  return entries
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => entry.name)
-    .filter((name) => name !== SOURCE_APP);
-};
-
-const syncPublic = async (targetApp: string): Promise<void> => {
-  if (targetApp === SOURCE_APP) {
-    throw new Error('L\'app source et la destination ne peuvent pas être identiques.');
-  }
-
-  const availableApps = await resolveAppNames();
-  if (!availableApps.includes(targetApp)) {
-    throw new Error(`L\'app "${targetApp}" est introuvable. Apps disponibles : ${availableApps.join(', ')}.`);
-  }
-
-  const sourcePublic = path.join(appsRoot, SOURCE_APP, 'public');
-  const targetPublic = path.join(appsRoot, targetApp, 'public');
-
-  await assertDirectory(path.join(appsRoot, SOURCE_APP), `l'app source ${SOURCE_APP}`);
-  await assertDirectory(sourcePublic, `public de ${SOURCE_APP}`);
-  await assertDirectory(path.join(appsRoot, targetApp), `l'app cible ${targetApp}`);
-  await ensureDirectory(targetPublic);
-
-  console.info(`Copie de ${path.relative(repoRoot, sourcePublic)} vers ${path.relative(repoRoot, targetPublic)}...`);
-  await cp(sourcePublic, targetPublic, {
-    recursive: true,
-    force: true,
-    errorOnExist: false,
-  });
-
-  const markerContent = [
-    '# Dossier synchronisé automatiquement',
-    `Source : ${path.relative(repoRoot, sourcePublic)}`,
-    `Dernière synchronisation : ${new Date().toISOString()}`,
-    '',
-  ].join('\n');
-
-  await writeFile(path.join(targetPublic, MARKER_FILENAME), `${markerContent}\n`, 'utf8');
-  console.info(`Synchronisation terminée pour l'app "${targetApp}".`);
+const copyDirIfExists = async (src: string, dest: string): Promise<void> => {
+    if (!(await exists(src))) {
+        console.log(`[sync-public] skip (absent): ${src}`);
+        return;
+    }
+    if (await samePath(src, dest)) {
+        console.warn(`[sync-public] skip (src==dest): ${src}`);
+        return;
+    }
+    await ensureDir(dest);
+    await fs.cp(src, dest, { recursive: true, force: true, errorOnExist: false });
+    console.log(`[sync-public] copied: ${src} -> ${dest}`);
 };
 
 const main = async (): Promise<void> => {
-  const options = parseArgs(process.argv.slice(2));
-  await syncPublic(options.app);
+    const { app, from, to } = parseArgs();
+    console.log(`[sync-public] app=${app}`);
+    console.log(`[sync-public] from=${from}`);
+    console.log(`[sync-public] to=${to}`);
+
+    await ensureDir(to);
+    await copyDirIfExists(path.join(from, "common"), to);
+    await copyDirIfExists(path.join(from, app), to);
+
+    const marker = `# Assets synchronisés\nfrom=${from}\napp=${app}\ndest=${to}\n`;
+    await fs.writeFile(path.join(to, ".synced-from.txt"), marker, "utf8");
+    console.log(`[sync-public] done.`);
 };
 
-void main().catch((error: unknown) => {
-  if (error instanceof Error) {
-    console.error(error.message);
-  } else {
-    console.error('Erreur inconnue', error);
-  }
-  process.exitCode = 1;
+main().catch((error) => {
+    console.error("[sync-public] Error:", error instanceof Error ? error.message : String(error));
+    process.exit(1);
 });
