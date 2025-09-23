@@ -1,6 +1,6 @@
-import React from "react";
 // import "./loader.scss";
 import Image from "next/image";
+
 const Loader = () => {
     return (
         <div className="loader">
