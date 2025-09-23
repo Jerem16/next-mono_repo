@@ -27,13 +27,7 @@
             "@packages/types": ["../../packages/types/src"],
             "@packages/types/*": ["../../packages/types/src/*"],
             "@apps/*": ["../../apps/*"],
-            "@src/*": ["src/*"],
             "@app/*": ["app/*"],
-            "@assets/*": ["src/assets/*"],
-            "@components/*": ["src/components/*"],
-            "@hooks/*": ["src/hooks/*"],
-            "@context/*": ["src/utils/context/*"],
-            "@utils/*": ["src/utils/*"],
             "@public/*": ["public/*"]
         },
         "plugins": [{ "name": "next" }]

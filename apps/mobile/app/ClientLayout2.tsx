@@ -1,7 +1,9 @@
-import ScrollSectionsWrapper from "./ScrollSectionsWrapper";
-import ScrollProvider from "../src/utils/context/ScrollContext";
+import type { ReactNode } from "react";
 
-const ClientLayout2 = ({ children }: { children: React.ReactNode }) => {
+import { ScrollProvider } from "@packages/ui";
+import ScrollSectionsWrapper from "./ScrollSectionsWrapper";
+
+const ClientLayout2 = ({ children }: { children: ReactNode }) => {
     return (
         <ScrollProvider>
             <ScrollSectionsWrapper>{children}</ScrollSectionsWrapper>
