@@ -1,4 +1,4 @@
-import Frames from "@src/components/frames/Frames";
+import { Frames } from "@packages/ui";
 
 export default function Page() {
     return (

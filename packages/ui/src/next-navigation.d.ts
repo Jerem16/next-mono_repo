@@ -4,4 +4,5 @@ declare module "next/navigation" {
         replace: (url: string) => void;
     };
     export function useRouter(): AppRouterInstance;
+    export function usePathname(): string;
 }

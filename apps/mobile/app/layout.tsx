@@ -1,18 +1,11 @@
-import HeaderLazy from "@src/components/header/HeaderLazy";
-import ClientLayout from "./ClientLayout";
-import dynamic from "next/dynamic";
+import type { ReactNode } from "react";
 
-const NavigationProvider = dynamic(() =>
-    import("../src/utils/context/NavigationContext").then(
-        (mod) => mod.NavigationProvider
-    )
-);
+import { MobileHeaderLazy, NavigationProvider } from "@packages/ui";
+import ClientLayout from "./ClientLayout";
 
 export default function RootLayout({
     children,
-}: Readonly<{
-    children: React.ReactNode;
-}>) {
+}: Readonly<{ children: ReactNode }>) {
     return (
         <html lang="fr-FR">
             <head>
@@ -31,7 +24,7 @@ export default function RootLayout({
                     <ClientLayout>
                         <header>
                             <div className="content-wrapper">
-                                <HeaderLazy />
+                                <MobileHeaderLazy />
                             </div>
                         </header>
                         <main>{children}</main>
